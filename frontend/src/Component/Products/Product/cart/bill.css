@@ -1,0 +1,31 @@
+.bill {
+  width: 40rem;
+  margin: 2rem;
+  background-color: white;
+  padding: 3%;
+}
+
+.flex {
+  display: flex;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.center {
+  justify-content: center;
+}
+
+#title-bill {
+  border-bottom: 1px solid grey;
+  margin-top: 0;
+}
+
+#title-bill h1 {
+  margin-top: 0;
+}
+
+.bill h2 {
+  margin: 1rem 0;
+}

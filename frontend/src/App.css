@@ -1,0 +1,22 @@
+.App {
+  text-align: center;
+}
+
+.dropdown {
+  display: inline-block;
+  position: relative;
+}
+
+.dropdown-content {
+  position: absolute;
+  display: none;
+  min-width: 12rem;
+  padding: 1rem;
+  z-index: 1;
+  background-color: #203040;
+  margin: 0;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
