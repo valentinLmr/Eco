@@ -1,4 +1,3 @@
-import { PromiseProvider } from 'mongoose';
 import React, { useState } from 'react'
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,6 +6,8 @@ import { signin } from '../../backend/Actions/userActions';
 import { LoadingBox } from '../LoadingBox';
 import {MessageBox} from '../MessageBox'
 import './signIn.css'
+import {LoadingBox} from '../LoadingBox';
+import {MessageBox} from '../MessageBox'
 
 const SignIn = (props) => {
 
@@ -37,7 +38,9 @@ const SignIn = (props) => {
                     <h1>Sign IN</h1>
                 </div>
                 {loading && <LoadingBox></LoadingBox>}
-                {error && <MessageBox>{error}</MessageBox>}
+
+
+                {error && <MessageBox variant='danger'>{error}</MessageBox>}
                 <div>
                     <label htmlFor='form'>Email adress</label>
                     <input type='email' id='email' placeholder='Enter Email' required onChange={(e) => setEmail(e.target.value)}></input>
