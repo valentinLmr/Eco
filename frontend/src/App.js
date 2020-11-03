@@ -8,6 +8,7 @@ import SignIn from "./Component/User/signIn";
 import "./App.css";
 import { useDispatch, useSelector } from "react-redux";
 import { signout } from "./backend/Actions/userActions";
+import Register from "./Component/User/register";
 
 function App() {
   const OpensideBar = () =>
@@ -67,6 +68,8 @@ function App() {
           <Route path="/products/:id" exact={true} component={Product} />
           <Route path="/products" exact={true} component={ProductsScreen} />
           <Route path="/signin"  exact={true} component={SignIn}></Route>
+          <Route path="/register"  exact={true} component={Register}></Route>
+
           <Route path="/" exact={true} component={HomeScreen} />
         </main>
         <footer className="footer">
