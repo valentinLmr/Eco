@@ -10,8 +10,8 @@ dotenv.config()
 
 
 const app = express();
-// app.use(express.json())
-// app.use(express.urlencoded({ extended : true}));
+app.use(express.json())
+app.use(express.urlencoded({ extended : true}));
 
 mongoose.connect(process.env.MONGO_URL || "mongodb://localhost/amazona", {
   useNewUrlParser: true,

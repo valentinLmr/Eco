@@ -4,6 +4,8 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { signin } from '../../backend/Actions/userActions';
+import { LoadingBox } from '../LoadingBox';
+import {MessageBox} from '../MessageBox'
 import './signIn.css'
 
 const SignIn = (props) => {
@@ -14,7 +16,7 @@ const SignIn = (props) => {
     const redirect = props.location.search ? props.location.search.split('=')[1] : '/';
 
     const userSignIn = useSelector((state) => state.userSignin)
-    const {userInfo} = userSignIn
+    const {userInfo, loading, error} = userSignIn
 
     const dispatch = useDispatch()
     const submitHandler = (e) => {
@@ -34,6 +36,8 @@ const SignIn = (props) => {
                 <div>
                     <h1>Sign IN</h1>
                 </div>
+                {loading && <LoadingBox></LoadingBox>}
+                {error && <MessageBox>{error}</MessageBox>}
                 <div>
                     <label htmlFor='form'>Email adress</label>
                     <input type='email' id='email' placeholder='Enter Email' required onChange={(e) => setEmail(e.target.value)}></input>
