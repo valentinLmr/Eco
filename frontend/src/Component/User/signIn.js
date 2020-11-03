@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { signin } from '../../backend/Actions/userActions';
+import { LoadingBox } from '../LoadingBox';
+import {MessageBox} from '../MessageBox'
 import './signIn.css'
 import {LoadingBox} from '../LoadingBox';
 import {MessageBox} from '../MessageBox'
@@ -36,6 +38,8 @@ const SignIn = (props) => {
                     <h1>Sign IN</h1>
                 </div>
                 {loading && <LoadingBox></LoadingBox>}
+
+
                 {error && <MessageBox variant='danger'>{error}</MessageBox>}
                 <div>
                     <label htmlFor='form'>Email adress</label>
