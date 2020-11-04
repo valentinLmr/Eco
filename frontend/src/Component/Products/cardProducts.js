@@ -6,6 +6,7 @@ function product(props) {
     <Link data='hello'
       className="product-card"
       to={"/products/" + props.product._id}
+      key={props.key}
     >
       <div className="container-image-product-card">
         <img alt='fix' src={props.product.image} className="cart_photo" />

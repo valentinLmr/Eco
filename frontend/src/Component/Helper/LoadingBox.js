@@ -4,7 +4,7 @@ import './Loading.css'
 export  const LoadingBox = () => {
     return (
         <div className='loading'>
-            <i class="fas fa-spinner">Loading...</i>
+            <i className="fas fa-spinner">Loading...</i>
         </div>
     )
 }

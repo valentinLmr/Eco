@@ -12,7 +12,6 @@ const initialState = {
 export const productListReducer = (state = initialState, action) => {
     switch (action.type) {
         case PRODUCT_LIST_REQUEST:
-             console.log(state.filters)
             return{...state,
                 loading: true}
         case  PRODUCT_LIST_SUCCESS:
@@ -30,7 +29,6 @@ export const productListReducer = (state = initialState, action) => {
             error: action.payload
         }
         case PRODUCT_LIST_FILTERING:
-            console.log('je vais bien demarer la fonction filtering')
         const newArray = findItem(state.allProducts, action.payload)
         return{
             ...state,

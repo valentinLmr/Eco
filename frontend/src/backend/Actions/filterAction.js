@@ -1,7 +1,6 @@
 import { BRAND, CATEGORIES, COLOR, PRICE, SIZE } from '../constants/filterConstant';
 
 export const filteringProduct = (actionType, filter) => async (dispatch) => {
-    console.log(actionType)
     switch(actionType){
         case 'CATEGORIES':
             dispatch({

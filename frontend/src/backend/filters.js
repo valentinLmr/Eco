@@ -38,9 +38,6 @@ import * as useFull from './Usefull'
   
 
   const filterMethod = (arrayOfProductsTofilter, keyOfProduct, valueOfProduct) => {
-    console.log(arrayOfProductsTofilter)
-    console.log(keyOfProduct)
-    console.log(valueOfProduct)
 
 
     return arrayOfProductsTofilter.filter((product) => {
@@ -49,12 +46,10 @@ import * as useFull from './Usefull'
   };
 
   const findItem = (productsToFilter, filters) => {
-    console.log(productsToFilter)
-    console.log(filters)
+
     let arrayofproduct = [];
     let initialState = [...productsToFilter];
-    console.log(filters)
-    console.log(productsToFilter)
+
 
     if (
       filters.categories.length > 0 &&

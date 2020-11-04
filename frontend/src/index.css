@@ -8,9 +8,7 @@ body {
   width: 100%;
   background-color: #e8e6e65c;
 }
-input {
-  background-color: #f6f5f5;
-}
+
 select {
   background-color: #f6f5f5;
 }
@@ -21,6 +19,19 @@ a {
 
 ul {
   list-style: none;
+}
+
+input,
+select,
+textarea,
+button {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 0.1rem #a4a4a4 solid;
+  font-size: 1.6rem;
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .grid-container {

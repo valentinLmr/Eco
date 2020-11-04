@@ -1,10 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import CardProduct from './cartCardProduct'
 import './bill.css'
+import { addToCart } from '../../../../backend/Actions/cartAction'
+import { useDispatch } from 'react-redux'
 
-function cart(props) {
+const Cart = (props) => {
 
+    const productId = props.match.params.id
+    const dispatch = useDispatch();
+    useEffect(() => {
+        if(productId){
+            dispatch(addToCart(productId, 1))
+        }
+    }, [dispatch, productId, 1])
+    
     return(
         <div>
             <Link to={'/products'} className='link_to_products'>
@@ -52,4 +62,4 @@ function cart(props) {
 
 }
 
-export default cart
+export default Cart

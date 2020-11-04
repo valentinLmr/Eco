@@ -3,8 +3,8 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { registerIn } from '../../backend/Actions/userActions';
-import { LoadingBox } from '../LoadingBox';
-import {MessageBox} from '../MessageBox'
+import { LoadingBox } from '../Helper/LoadingBox';
+import {MessageBox} from '../Helper/MessageBox'
 import './signIn.css'
 
 const Register = (props) => {
@@ -41,7 +41,7 @@ const Register = (props) => {
         <div>
             <form className = 'form' onSubmit={submitHandler}>
                 <div>
-                    <h1>Register</h1>
+                    <h1>Create Accoumpt</h1>
                 </div>
                 {loading && <LoadingBox></LoadingBox>}
                 {error && <MessageBox variant='danger'>{error}</MessageBox>}
@@ -67,7 +67,7 @@ const Register = (props) => {
                 </div>
                 <div>
                 Already have an account  ? {' '}
-                    <Link to="/signIn"> SignIn</Link>
+                    <Link to={`/signIn?redirect=${redirect}`}> SignIn</Link>
                 </div>
             </form>
         </div>
