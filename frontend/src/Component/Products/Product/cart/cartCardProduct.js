@@ -1,7 +1,7 @@
 import React from 'react'
 import './cartCardProduct.css'
 
-function cart(props) {
+function cart() {
 
     return(
         <div className='card_cart_product'>
@@ -31,7 +31,7 @@ function cart(props) {
                         </div>
                         <div id='card-cart-product-aside-section-top-price'>
                             <div className='element'>
-                                <input type="text" value="Code promo" />
+                                <input type="text" defaultValue="Code promo" />
                                 <h2>59.99€</h2>
                             </div>
                         </div>

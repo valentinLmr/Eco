@@ -17,8 +17,6 @@ mongoose.connect(process.env.MONGO_URL || "mongodb://localhost/amazona", {
   useUnifiedTopology: true, 
   useCreateIndex: true,
 });
-
-console.log('je suis ici')
 app.use('/api/users', userRouter);
 app.use('/api/products', productRouter);
 

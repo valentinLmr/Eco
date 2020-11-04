@@ -1,8 +1,8 @@
 import React, { useEffect, useState} from "react";
 import CardProducts from './cardProducts';
 import FilterBar from './filterbar';
-import { MessageBox } from "../MessageBox";
-import { LoadingBox } from "../LoadingBox";
+import { MessageBox } from "../Helper/MessageBox";
+import { LoadingBox } from "../Helper/LoadingBox"
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../../backend/Actions/productActions"
 import findItem from "../../backend/filters";
@@ -22,7 +22,6 @@ const ProductsScreen = () => {
   
   if (filters.data) {
     const productToDisplay = findItem(allProducts, filters)
-    console.log(productToDisplay)
     return (
       <div>
         <FilterBar />
@@ -33,7 +32,7 @@ const ProductsScreen = () => {
           :( <div className="products-display">
 
                 {productToDisplay.map((product) => (
-                 <CardProducts product={product} key={product.id} />))}
+                 <CardProducts key={product._id} product={product}/>))}
               </div>) }
         </div>
       </div>

@@ -1,6 +1,4 @@
-import { useDispatch } from 'react-redux';
 import { BRAND, CATEGORIES, COLOR, PRICE, SIZE } from '../../backend/constants/filterConstant';
-import { PRODUCT_LIST_FILTERING } from '../../backend/constants/productConstant';
 
 const filters = {
     categories: [],
@@ -36,8 +34,6 @@ const filterReducer = (state = filters, action) => {
                     categories: updateArray
                 }
             } else {
-
-                console.log('im here')
                 return {...state,
                     data: true,
                     categories: state.categories.concat(action.payload)
@@ -67,6 +63,8 @@ const filterReducer = (state = filters, action) => {
             price: action.payload
 
             }
+        default:
+            return state
     };
     return state
 }

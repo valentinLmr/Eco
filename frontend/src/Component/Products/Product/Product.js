@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Product.css";
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
@@ -10,14 +10,18 @@ const Product = (props) => {
    const productId = props.match.params.id
   const productDetails = useSelector( state => state.productDetails);
   const {loading, product} = productDetails
+  const {color, setColor} = useState('')
   
   useEffect(() => {
     dispatch(detailsProduct(productId));
   }, [dispatch, productId])
 
-  console.log(productDetails)
-  console.log(product)
+  const addToCartHandler = () => {
+    props.history.push(`/cart/${productId}`)
+  }
 
+
+  console.log(product)
   return (
     <div className="product-display-screen">
       <aside className="product-side-pictures">
@@ -68,9 +72,12 @@ const Product = (props) => {
                 justifyContent: "space-between",
               }}
             >
-              <p>Taille</p>
+              <p>color</p>
               <div className="setting-color-product">
-                <p>L</p>
+                <select value={color} onChange={e => setColor(e.target.value)}>{
+                  [...Array(product.colors)].map((x) => console.log(x))
+                }
+                  </select>
                 <i className="fas fa-caret-down"></i>
               </div>
             </div>
@@ -78,17 +85,17 @@ const Product = (props) => {
               <p>Guide des tailles</p>
             </div>
             <div className="detail">
-              <input type="text" value="Code promo" />
+              <input type="text" defaultValue="Code promo" />
             </div>
             <h2>59.99€</h2>
           </div>
           <div style={{ display: "flex", justifyContent: "center" }}>
-            <Link
-            to={'/mycart'}
+            <button
+            onClick={addToCartHandler}
             className="button-product-add"
             >
               Ajouter au panier
-            </Link>
+            </button>
           </div>
         </div>
       </aside>

@@ -8,7 +8,6 @@ import { filteringProduct } from '../../backend/Actions/filterAction';
 
   const dispatch = useDispatch();
   const filters = useSelector((state) => state.filters)
-  console.log(filters)
 
   const dispatching = (key, value) => {
     updatefilter(key, value)

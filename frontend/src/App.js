@@ -9,6 +9,7 @@ import "./App.css";
 import { useDispatch, useSelector } from "react-redux";
 import { signout } from "./backend/Actions/userActions";
 import Register from "./Component/User/register";
+import ShippingAddress from "./Component/Shipping/ShippingAddress";
 
 function App() {
   const OpensideBar = () =>
@@ -37,7 +38,7 @@ function App() {
             {userInfo ? (
             <div className='dropdown'>
               <Link to="#"> 
-                {userInfo.name} <i class='fa fa-caret-down'></i>{' '}
+                {userInfo.name} <i className='fa fa-caret-down'></i>{' '}
               </Link>  
               <ul className='dropdown-content'> 
                 <Link to='#signout' onClick={signoutHandler}>Sign Out</Link>
@@ -64,13 +65,13 @@ function App() {
           </ul>
         </aside>
         <main className="main">
-          <Route path='/mycart' exact={true} component={Cart} />
-          <Route path="/products/:id" exact={true} component={Product} />
-          <Route path="/products" exact={true} component={ProductsScreen} />
-          <Route path="/signin"  exact={true} component={SignIn}></Route>
-          <Route path="/register"  exact={true} component={Register}></Route>
-
-          <Route path="/" exact={true} component={HomeScreen} />
+          <Route path='/cart/:id?' component={Cart} />
+          <Route path="/products/:id" component={Product} />
+          <Route path="/products" component={ProductsScreen} exact />
+          <Route path="/signin"  component={SignIn}></Route>
+          <Route path="/register"  component={Register}></Route>
+          <Route path='/shipping' component={ShippingAddress}></Route>
+          <Route path="/"  component={HomeScreen} exact/>
         </main>
         <footer className="footer">
           <p>Thanks for passing By</p>

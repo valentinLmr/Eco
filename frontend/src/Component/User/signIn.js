@@ -3,8 +3,8 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { signin } from '../../backend/Actions/userActions';
-import { LoadingBox } from '../LoadingBox';
-import {MessageBox} from '../MessageBox'
+import { LoadingBox } from '../Helper/LoadingBox';
+import {MessageBox} from '../Helper/MessageBox'
 import './signIn.css'
 
 
@@ -54,7 +54,7 @@ const SignIn = (props) => {
                 </div>
                 <div>
                     New customer ? {' '}
-                    <Link to="/register"> Create your accoumpt</Link>
+                    <Link to={`/register?redirect=${redirect}`}> Create your accoumpt</Link>
                 </div>
             </form>
         </div>
