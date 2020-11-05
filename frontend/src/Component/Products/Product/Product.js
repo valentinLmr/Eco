@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Product.css";
-import { connect, useDispatch, useSelector } from 'react-redux';
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
 import { detailsProduct } from "../../../backend/Actions/productActions";
 
 const Product = (props) => {
@@ -10,19 +9,19 @@ const Product = (props) => {
    const productId = props.match.params.id
   const productDetails = useSelector( state => state.productDetails);
   const {loading, product} = productDetails
-  const {color, setColor} = useState('')
+  const [size, setSize] = useState('')
+
+  const [color, setColor] = useState('')
   
   useEffect(() => {
     dispatch(detailsProduct(productId));
   }, [dispatch, productId])
 
   const addToCartHandler = () => {
-    props.history.push(`/cart/${productId}`)
+    props.history.push(`/cart/${productId}?clr=${color}&?sz=${size}`)
   }
 
-
-  console.log(product)
-  return (
+    return (
     <div className="product-display-screen">
       <aside className="product-side-pictures">
         <div className="container-photos-product-sider">
@@ -55,12 +54,21 @@ const Product = (props) => {
                   justifyContent: "center",
                 }}
               >
-                <div className="circle-color-product"></div>
-                <p>Rose</p>
-              </div>
-              <div className="setting-color-product">
-                <p>Nb of color</p>
-                <i className="fas fa-caret-down"></i>
+                <select value={color ? color : product.colors[0].color} onChange={(e) => setColor(e.target.value)}>
+                    {
+                      product.colors?  product.colors.map(color => <option value={color.color}> {color.color}</option>) : ''
+                    }
+                </select>
+                </div>
+              <div 
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}>
+                    {
+                      product.colors? <p>Number of Color :  {product.colors.length}</p> : ''
+                    }
               </div>
             </div>
 
@@ -72,13 +80,12 @@ const Product = (props) => {
                 justifyContent: "space-between",
               }}
             >
-              <p>color</p>
-              <div className="setting-color-product">
-                <select value={color} onChange={e => setColor(e.target.value)}>{
-                  [...Array(product.colors)].map((x) => console.log(x))
-                }
-                  </select>
-                <i className="fas fa-caret-down"></i>
+              <p>taille</p>
+              <div className="setting-size-product">
+                <select value={size ? size : product.color[0].sizes[0].size} onChange={(e) => setSize(e.target.value)}>
+                    {
+                      product.colors?  product.colors[0].sizes.map(size => <option value={size.size}> {size.size}</option> ) : '' }
+                </select>
               </div>
             </div>
             <div className="detail">
