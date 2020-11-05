@@ -83,15 +83,9 @@
 
 .detail {
   margin: 2rem 0;
-  height: 3rem;
+  padding: 1rem;
+  height: auto;
   border-bottom: 0.1rem solid grey;
-}
-
-.detail input {
-  border: none;
-  width: 80%;
-  color: #dfd1d1;
-  background-color: none;
 }
 
 .detail h2 {

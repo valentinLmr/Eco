@@ -12,6 +12,9 @@ import Register from "./Component/User/register";
 import ShippingAddress from "./Component/Shipping/ShippingAddress";
 
 function App() {
+
+  const cart = useSelector(state => state.cart)
+  const {cartItems} = cart
   const OpensideBar = () =>
     document.querySelector(".sidebar").classList.add("open");
   const RemovesideBar = () =>
@@ -34,7 +37,7 @@ function App() {
 
           <div className="header-links">
             <Link to="/products"> Vêtement</Link>
-            <Link to="/mycart"> Panier</Link>
+            <Link to="/cart"> panier { cartItems.length > 0 && ( <span className='badge'>{cartItems.length}</span>)}</Link>
             {userInfo ? (
             <div className='dropdown'>
               <Link to="#"> 

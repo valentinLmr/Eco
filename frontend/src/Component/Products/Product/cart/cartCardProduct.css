@@ -55,7 +55,7 @@
   justify-content: space-evenly;
 }
 
-#button-card-cart-product {
+.button-card-cart-product {
   width: 15rem;
   height: 4rem;
   color: white;
