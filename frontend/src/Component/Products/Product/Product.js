@@ -18,8 +18,10 @@ const Product = (props) => {
   }, [dispatch, productId])
 
   const addToCartHandler = () => {
-    props.history.push(`/cart/${productId}?clr=${color}&?sz=${size}`)
+    props.history.push(`/cart/${productId}?clr=${color ? color : product.colors[0].color}&?sz=${size ? size : product.colors[0].sizes[0].size}`)
   }
+  console.log(size)
+
 
     return (
     <div className="product-display-screen">
@@ -54,7 +56,7 @@ const Product = (props) => {
                   justifyContent: "center",
                 }}
               >
-                <select value={color ? color : product.colors[0].color} onChange={(e) => setColor(e.target.value)}>
+                <select value={color} onChange={(e) => setColor(e.target.value)}>
                     {
                       product.colors?  product.colors.map(color => <option value={color.color}> {color.color}</option>) : ''
                     }
@@ -82,7 +84,7 @@ const Product = (props) => {
             >
               <p>taille</p>
               <div className="setting-size-product">
-                <select value={size ? size : product.color[0].sizes[0].size} onChange={(e) => setSize(e.target.value)}>
+                <select value={size} onChange={(e) => setSize(e.target.value)}>
                     {
                       product.colors?  product.colors[0].sizes.map(size => <option value={size.size}> {size.size}</option> ) : '' }
                 </select>
