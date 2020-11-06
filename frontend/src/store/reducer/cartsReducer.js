@@ -16,21 +16,10 @@ export const cartReducer = (state = {cartItems: []}, action) => {
                 return {
                     ...state, cartItems : state.cartItems.filter(x => x._id !== action.payload._id)
                 };
+            case CART_SAVE_SHIPPING_ADDRESS:
+                return {...state, shippingAddress: action.payload};
         default:
         return state;
     }
     
-}
-
-export const cartShippingreducer = (state = { product: {}, loading: false}, action) => {
-    switch(action.type){
-        case CART_SAVE_SHIPPING_ADDRESS:
-            return {...state, ShippingAddress: action.payload};
-        case 'PRODUCT_DETAILS_SUCCESS':
-                return {...state, product: action.payload, loading: false};
-        case 'PRODUCT_DETAILS_FAIL':
-            return {...state,  product: action.payload, loading: false};
-        default:
-        return state
-    }
-}
+};

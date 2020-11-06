@@ -1,20 +1,36 @@
 
+import { PromiseProvider } from 'mongoose';
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { saveShippingAddress } from '../../backend/Actions/cartAction';
 import CheckOutStep from '../checkOut/checkOutSteps'
 
-const ShippingAddress = () => {
-    const [fullName, setFullName] = useState('');
-    const [address, setAddress] = useState('');
-    const [city, setCity] = useState('');
-    const [postalCode, setPostalCode] = useState('');
-    const [country, setCountry] = useState('');
+const ShippingAddress = (props) => {
+    const userSignIn = useSelector ((state)=> state.userSignin)
+
+    const {userInfo} = userSignIn;
+    const cart =  useSelector(state => state.cart)
+
+    console.log(cart)
+    const { shippingAddress } = cart
+
+    console.log(shippingAddress)
+
+    if(!userInfo) {
+        props.history.push('/signin')
+    }
+
+    const [fullName, setFullName] = useState(shippingAddress.fullName);
+    const [address, setAddress] = useState(shippingAddress.address);
+    const [city, setCity] = useState(shippingAddress.city);
+    const [postalCode, setPostalCode] = useState(shippingAddress.postalCode);
+    const [country, setCountry] = useState(shippingAddress.country);
 
     const dispatch = useDispatch()
     const submitHandler = (e) => {
         e.preventDefaul();
-      dispatch(saveShippingAddress(fullName, address, city, postalCode, country))
+      dispatch(saveShippingAddress({fullName, address, city, postalCode, country}))
+      props.history.push('/payment')
     }
     return (
         <div>
@@ -45,7 +61,7 @@ const ShippingAddress = () => {
             </div>
             <div>
                 <label/>
-                <button className='primary' type='submit'></button>
+                <button className='primary' type='submit'> Continue</button>
             </div>
             </form>
         </div>

@@ -4,11 +4,7 @@ import { CART_ADD_ITEM, CART_DELETE_ITEM, CART_SAVE_SHIPPING_ADDRESS } from '../
 
 
 export const addToCart = (productId, colorSelected,  sizeSelected) => async(dispatch, getState) => {
-    console.log('je suis ici')
-    console.log(productId)
     const {data} = await Axios.get(`/api/products/${productId}`)
-    console.log(data)
-
     const color = data.colors.find(el => el.color === colorSelected)
     const size = color.sizes.find(el => el.size === sizeSelected)
 
@@ -34,6 +30,6 @@ export const deleteFromCar = (id) => (dispatch, getState) => {
 };
 
 export const saveShippingAddress = (data) => (dispatch) => {
-    dispatch({type: CART_SAVE_SHIPPING_ADDRESS, payload: data})
-    localStorage.setItem('shippingAddress', JSON.stringify(data))
+    dispatch({type: CART_SAVE_SHIPPING_ADDRESS, payload: data});
+    localStorage.setItem('shippingAddress',  JSON.stringify(data));
 };
