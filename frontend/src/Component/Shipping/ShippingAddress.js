@@ -1,5 +1,3 @@
-
-import { PromiseProvider } from 'mongoose';
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { saveShippingAddress } from '../../backend/Actions/cartAction';
@@ -11,10 +9,9 @@ const ShippingAddress = (props) => {
     const {userInfo} = userSignIn;
     const cart =  useSelector(state => state.cart)
 
-    console.log(cart)
     const { shippingAddress } = cart
 
-    console.log(shippingAddress)
+    console.log(cart)
 
     if(!userInfo) {
         props.history.push('/signin')
@@ -26,10 +23,12 @@ const ShippingAddress = (props) => {
     const [postalCode, setPostalCode] = useState(shippingAddress.postalCode);
     const [country, setCountry] = useState(shippingAddress.country);
 
+    console.log(fullName, address, city, postalCode, country)
+
     const dispatch = useDispatch()
     const submitHandler = (e) => {
-        e.preventDefaul();
-      dispatch(saveShippingAddress({fullName, address, city, postalCode, country}))
+        e.preventDefault();
+      dispatch(saveShippingAddress({fullName, address, city, postalCode, country}));
       props.history.push('/payment')
     }
     return (
@@ -41,7 +40,7 @@ const ShippingAddress = (props) => {
             </div>
             <div>
                 <label htmlFor='fullName'>Fullname</label>
-                <input type="text" id='fullName' placeholder='Enter ful name' value={fullName} onChange={(e) => setFullName(e.target.value)} required></input>
+                <input type="text" id='fullName' placeholder='Enter full name' value={fullName} onChange={(e) => setFullName(e.target.value)} required></input>
             </div>
             <div>
                 <label htmlFor='address'>Address</label>

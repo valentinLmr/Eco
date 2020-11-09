@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect} from "react";
 import CardProducts from './cardProducts';
 import FilterBar from './filterbar';
 import { MessageBox } from "../Helper/MessageBox";
@@ -32,7 +32,7 @@ const ProductsScreen = () => {
           :( <div className="products-display">
 
                 {productToDisplay.map((product) => (
-                 <CardProducts key={product._id} product={product}/>))}
+                 <CardProducts key={product.name} product={product}/>))}
               </div>) }
         </div>
       </div>

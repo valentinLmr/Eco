@@ -66,7 +66,6 @@ const filterReducer = (state = filters, action) => {
         default:
             return state
     };
-    return state
 }
 
 export default filterReducer

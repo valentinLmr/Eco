@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { deleteFromCar } from '../../../../backend/Actions/cartAction'
 import './cartCardProduct.css'
 
-function Cart(props) {
+const CartCardProduct = (props)  => {
 
      const dispatch = useDispatch();
  const deleteItemHandler = (id) => {
@@ -55,4 +55,4 @@ function Cart(props) {
 
 }
 
-export default Cart
+export default CartCardProduct

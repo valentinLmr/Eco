@@ -1,44 +1,28 @@
-import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import './bill.css'
-import { addToCart } from '../../../../backend/Actions/cartAction'
-import { useDispatch, useSelector } from 'react-redux'
-import { MessageBox } from '../../../Helper/MessageBox'
-import CartCardProduct from './cartCardProduct'
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import CheckOutStep from '../checkOut/checkOutSteps';
+import { MessageBox } from '../Helper/MessageBox';
+import CartCardProduct from '../Products/Product/cart/cartCardProduct';
 
-const Cart = (props) => {
+ const PlaceOrder = () => {
 
-    const productId = props.match.params.id ? props.match.params.id : ''
+    const cart = useSelector(state => state.cart)
 
-        const detailProducts = props.location.search ? props.location.search : '';
-        const color = detailProducts ? detailProducts.split('&')[0].split('=')[1] : ''
-        const size = detailProducts ? detailProducts.split('&')[1].split('=')[1] : '';
-    
-
-    const cart = useSelector((state) => state.cart)
-
-    const {cartItems} = cart
-    
-    const dispatch = useDispatch();
-    useEffect(() => {
-        if(productId){
-            dispatch(addToCart(productId, color, size, 1))
-        }
-    }, [dispatch, productId, color, size])
-
-    const checkOutHandler = () => {
-        props.history.push('/signin?redirect=shipping')
-    }
-    
-    return(
+    const {cartItems, shippingAddress, paymentMethod} = cart
+    return (
         <div>
+            <CheckOutStep step1 step2 step3 step4>
+            </CheckOutStep>
+
+            <div>
             <Link to={'/products'} className='link_to_products'>
                 retour à votre shopping
             </Link>
             <div style={{display: 'flex', width: "90%", margin: "0 auto"}}>
                 <section className='cardsOfProductCart'>
                     {cartItems.length === 0 ?                 <div className='card_cart_product'>
-<MessageBox>Cart is empty <Link to='/'>Go to Shopping</Link></MessageBox> </div> :
+                <MessageBox>Cart is empty <Link to='/'>Go to Shopping</Link></MessageBox> </div> :
                    cartItems.map((item) => 
                         <CartCardProduct key={item._id} item={item}></CartCardProduct>
                     )}
@@ -70,7 +54,6 @@ const Cart = (props) => {
                     <button
                         type='button'
                         className="primary block button-product-add"
-                        onClick={checkOutHandler}
                         >
                         Valider
                     </button>
@@ -78,8 +61,8 @@ const Cart = (props) => {
                 </section>
             </div>
         </div>
+        </div>
     )
-
 }
 
-export default Cart
+export default PlaceOrder
