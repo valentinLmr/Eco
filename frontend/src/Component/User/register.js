@@ -35,7 +35,7 @@ const Register = (props) => {
         if(userInfo){
             props.history.push(redirect);
         }
-    }, [userInfo])
+    }, [userInfo, props, redirect])
 
     return (
         <div>

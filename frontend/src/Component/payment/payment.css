@@ -1,0 +1,27 @@
+.payment_photo {
+  width: 90%;
+  height: 90%;
+}
+
+.PaymentChoice {
+  width: 300px;
+  height: 200px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.paymentSelectionContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: row !important;
+}
+
+.PaymentChoice > input {
+  display: none;
+}
+
+.selectedPayment {
+  background-color: #d0f0ff;
+}

@@ -8,7 +8,7 @@ const Product = (props) => {
    const dispatch = useDispatch();
    const productId = props.match.params.id
   const productDetails = useSelector( state => state.productDetails);
-  const {loading, product} = productDetails
+  const  {product} = productDetails
   const [size, setSize] = useState('')
 
   const [color, setColor] = useState('')

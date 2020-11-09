@@ -7,9 +7,11 @@ import Cart from './Component/Products/Product/cart/cart'
 import SignIn from "./Component/User/signIn";
 import "./App.css";
 import { useDispatch, useSelector } from "react-redux";
-import { signout } from "./backend/Actions/userActions";
 import Register from "./Component/User/register";
 import ShippingAddress from "./Component/Shipping/ShippingAddress";
+import PaymentMethod from "./Component/payment/payment";
+import { signout } from "./backend/Actions/userActions";
+import PlaceOrder from "./Component/placeOrder/placeOrder";
 
 function App() {
 
@@ -22,9 +24,11 @@ function App() {
 
   const userSignIn = useSelector((state) => state.userSignin)
   const {userInfo} = userSignIn
+  
 
   const dispatch = useDispatch()
-  const signoutHandler = () => {
+  const signoutHandler = (e) => {
+    e.preventDefault();
     dispatch(signout());
   }
   return (
@@ -44,7 +48,7 @@ function App() {
                 {userInfo.name} <i className='fa fa-caret-down'></i>{' '}
               </Link>  
               <ul className='dropdown-content'> 
-                <Link to='#signout' onClick={signoutHandler}>Sign Out</Link>
+                <Link to='#signout' onClick={e => signoutHandler(e)}>Sign Out</Link>
               </ul>
             </div>
             ) : (
@@ -74,6 +78,9 @@ function App() {
           <Route path="/signin"  component={SignIn}></Route>
           <Route path="/register"  component={Register}></Route>
           <Route path='/shipping' component={ShippingAddress}></Route>
+          <Route path='/payment' component={PaymentMethod}></Route>
+          <Route path='/placeorder' component={PlaceOrder}></Route>
+
           <Route path="/"  component={HomeScreen} exact/>
         </main>
         <footer className="footer">
