@@ -1,8 +1,9 @@
 import express from "express";
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRouter from "./model/routers/userRouter.js";
-import productRouter from './model/routers/productRouter.js'
+import productRouter from './model/routers/productRouter.js';
+import orderRouter from "./model/routers/orderRouter.js";
 
 
 dotenv.config()
@@ -19,6 +20,7 @@ mongoose.connect(process.env.MONGO_URL || "mongodb://localhost/amazona", {
 });
 app.use('/api/users', userRouter);
 app.use('/api/products', productRouter);
+app.use('/api/orders', orderRouter);
 
 app.use((err, req, res, next) => {
   res.status(500).send({message: err.message})
