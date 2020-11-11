@@ -38,7 +38,7 @@ const Cart = (props) => {
             <div style={{display: 'flex', width: "90%", margin: "0 auto"}}>
                 <section className='cardsOfProductCart'>
                     {cartItems.length === 0 ?                 <div className='card_cart_product'>
-<MessageBox>Cart is empty <Link to='/'>Go to Shopping</Link></MessageBox> </div> :
+                    <MessageBox>Cart is empty <Link to='/'>Go to Shopping</Link></MessageBox> </div> :
                    cartItems.map((item) => 
                         <CartCardProduct key={item._id} item={item}></CartCardProduct>
                     )}

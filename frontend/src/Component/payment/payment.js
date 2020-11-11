@@ -38,7 +38,7 @@ const PaymentMethod = (props) => {
             <div><h1>Payement Method</h1></div>
             <div className='paymentSelectionContainer'>
                 <div onClick={(e) => selectHandler(e)}  className='PaymentChoice selectedPayment' data-payment='Paypal'>
-                    <input  type='radio' id='paypal' name='paymentMethod' required ></input>
+                    <input  type='radio' id='paypal' name='paymentMethod' required checked></input>
                      <img alt='fix' src='/image/paypal.png'  className="payment_photo" onClick={(e) => setPayement('Paypal')}/>
                 </div>
                 <div  onClick={(e) => selectHandler(e)} className='PaymentChoice' data-payment='Stripe'>

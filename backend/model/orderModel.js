@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 const orderSchema = new mongoose.Schema(
     {
-        orderItems: [
+        cartItems: [
             {
                 name: {type: String, required: true},
                 qty: {type: Number, required: true},
@@ -33,7 +33,7 @@ const orderSchema = new mongoose.Schema(
             required: true
         },
         isPaid: { type:Boolean, default: false},
-        PaidAt: { type:Date, default: false},
+        paidAt: { type: Date},
         isDelivered: { type:Boolean, default: false},
         deliveredAt: { type:Boolean, default: false},
         },{

@@ -1,3 +1,10 @@
 .loading {
   display: block !important;
 }
+
+.success {
+  color: #20a020;
+}
+.danger {
+  color: #a02020;
+}
