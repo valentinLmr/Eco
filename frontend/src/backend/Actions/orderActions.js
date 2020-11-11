@@ -13,10 +13,9 @@ export const createOrder = (order) => async(dispatch, getState) => {
             },
         });
      dispatch({type: ORDER_SUCCESS_REQUEST, payload: data.order});
-     dispatch({type: CART_EMPTY});
-     localStorage.removeItem('cartItems');
+     
     } catch (error){
-        dispatch({type: ORDER_FAIL_REQUEST, payload: error.response && error.response.data.message ? error.response.data.message : error.message})
+    dispatch({type: ORDER_FAIL_REQUEST, payload: error.response && error.response.data.message ? error.response.data.message : error.message})
     }
 }
 

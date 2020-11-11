@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import {PayPalButton} from 'react-paypal-button-v2'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { createOrder } from '../../backend/Actions/orderActions';
@@ -8,6 +9,8 @@ import { MessageBox } from '../Helper/MessageBox';
 import { LoadingBox } from '../Helper/LoadingBox';
 
 import CartCardProduct from '../Products/Product/cart/cartCardProduct';
+import Axios from 'axios';
+import { CART_EMPTY } from '../../backend/constants/cartConstant';
 
 
  const PlaceOrder = (props) => {
@@ -22,12 +25,14 @@ import CartCardProduct from '../Products/Product/cart/cartCardProduct';
 
     const orderCreate = useSelector(state => state.orderCreate)
     const {loading, success, error, order } = orderCreate
+    const [sdkReady, setSdkReady] =  useState(false);
 
     cart.itemsPrice = cartItems.reduce((a,c) => a + c.price, 0)
     cart.totalPrice = cartItems.reduce((a,c) => a + c.price, 0)
     cart.deliveryPrice = cart.totalPrice > 100 ? 0 : (cart.totalPrice * 0.15)
     cart.reductionPrice = 0
 
+    
     const dispatch = useDispatch();
 
     const placeOrderHandler = () => {
@@ -36,10 +41,35 @@ import CartCardProduct from '../Products/Product/cart/cartCardProduct';
 
     useEffect(() => {
         if(success){
-            props.history.push(`/order/${order._id}`)
-            dispatch({type: ORDER_RESET_REQUEST});
+            const addPaypalScript = async () => {
+                const {data} = await Axios.get('api/config/paypal');
+                const script = document.createElement('script');
+                script.type='text/javascript';
+                script.src=`https://www.paypal.com/sdk/js?client-id=${data}`
+                script.async = true
+                script.onload = () => {
+                    setSdkReady(true)
+                }
+                document.body.appendChild(script)
+            }
+        
+            if(!order.isPaid){
+                if(!window.paypal) {
+                    addPaypalScript();
+                } else{
+                    setSdkReady(true)
+                }
+            }
+            // props.history.push(`/order/${order._id}`)
         }
-    }, [dispatch, order, props.history, success])
+        
+    }, [order, success, sdkReady])
+
+    const successPaymentHandler = () => {
+        dispatch({type: ORDER_RESET_REQUEST});
+        dispatch({type: CART_EMPTY});
+        localStorage.removeItem('cartItems');
+    }
 
     return (
         <div>
@@ -92,13 +122,18 @@ import CartCardProduct from '../Products/Product/cart/cartCardProduct';
                             <h2>Total Prix</h2>
                             <h2>{(cart.totalPrice + cart.deliveryPrice).toFixed(2)}€</h2>
                         </div>
-                        <button
-                            type='button'
-                            className="primary block button-product-add"
-                            onClick={placeOrderHandler}
-                            >
-                            Valider
-                        </button>
+
+                        {!order ? 
+                            <button
+                                type='button'
+                                className="primary block button-product-add"
+                                onClick={placeOrderHandler}
+                                >
+                                Valider
+                            </button> :
+                            <PayPalButton amount={order.totalPrice} onSuccess={successPaymentHandler}></PayPalButton>
+                            }
+                        
                         {loading && <LoadingBox></LoadingBox>}
                         {error && <MessageBox variant="danger">{error}</MessageBox>}
                     </section>
