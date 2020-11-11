@@ -1,8 +1,12 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { createOrder } from '../../backend/Actions/orderActions';
+import { ORDER_RESET_REQUEST } from '../../backend/constants/order';
 import CheckOutStep from '../checkOut/checkOutSteps';
 import { MessageBox } from '../Helper/MessageBox';
+import { LoadingBox } from '../Helper/LoadingBox';
+
 import CartCardProduct from '../Products/Product/cart/cartCardProduct';
 
 
@@ -16,9 +20,26 @@ import CartCardProduct from '../Products/Product/cart/cartCardProduct';
         props.history.push('/payment')
     }
 
+    const orderCreate = useSelector(state => state.orderCreate)
+    const {loading, success, error, order } = orderCreate
+
+    cart.itemsPrice = cartItems.reduce((a,c) => a + c.price, 0)
     cart.totalPrice = cartItems.reduce((a,c) => a + c.price, 0)
-    cart.deliveryprice = cart.totalPrice > 100 ? 0 : (cart.totalPrice * 0.15)
-    parseInt(10, cart.totalPrice)
+    cart.deliveryPrice = cart.totalPrice > 100 ? 0 : (cart.totalPrice * 0.15)
+    cart.reductionPrice = 0
+
+    const dispatch = useDispatch();
+
+    const placeOrderHandler = () => {
+        dispatch(createOrder({...cart, orderItems: cart}))
+    }
+
+    useEffect(() => {
+        if(success){
+            props.history.push(`/order/${order._id}`)
+            dispatch({type: ORDER_RESET_REQUEST});
+        }
+    }, [dispatch, order, props.history, success])
 
     return (
         <div>
@@ -65,18 +86,21 @@ import CartCardProduct from '../Products/Product/cart/cartCardProduct';
                         </div>
                         <div className='flex space-between'>
                             <h4>Frais de Livraison</h4>
-                            <h4>{(cart.deliveryprice.toFixed(2))}€</h4>
+                            <h4>{(cart.deliveryPrice.toFixed(2))}€</h4>
                         </div>
                         <div className='flex space-between'>
                             <h2>Total Prix</h2>
-                            <h2>{(cart.totalPrice + cart.deliveryprice).toFixed(2)}€</h2>
+                            <h2>{(cart.totalPrice + cart.deliveryPrice).toFixed(2)}€</h2>
                         </div>
                         <button
                             type='button'
                             className="primary block button-product-add"
+                            onClick={placeOrderHandler}
                             >
                             Valider
                         </button>
+                        {loading && <LoadingBox></LoadingBox>}
+                        {error && <MessageBox variant="danger">{error}</MessageBox>}
                     </section>
                 </div>
             </div>
