@@ -7,6 +7,7 @@ import { LoadingBox } from '../Helper/LoadingBox';
 import CartCardProduct from '../Products/Product/cart/cartCardProduct';
 import Paypal from '../payment/paypal';
 import { orderDetail } from '../../backend/Actions/orderActions';
+import {ORDER_PAY_RESET} from '../../backend/constants/order'
 
 
 
@@ -15,13 +16,16 @@ import { orderDetail } from '../../backend/Actions/orderActions';
     const orderId = props.match.params.id
 
     const orderDetails = useSelector(state => state.orderDetails)
+    const orderPay = useSelector(state => state.orderPay)
+    const {error: errorPay, success: successPay} = orderPay
     const {order, loading, error} = orderDetails
-    
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(orderDetail(orderId))
-    }, [dispatch, orderId])
+        if(!order || successPay || (order && order._id != orderId)){
+        dispatch({type: ORDER_PAY_RESET});
+        dispatch(orderDetail(orderId))};
+    }, [dispatch, orderId, successPay])
 
     console.log(order)
     return loading ?
@@ -37,7 +41,7 @@ import { orderDetail } from '../../backend/Actions/orderActions';
                 </Link>
                 <div style={{display: 'flex', width: "90%", margin: "0 auto"}}>
                         <section className='cardsOfProductCart'>
-                                {order.cartItems.map((item) => <CartCardProduct key={item._id} item={item} deliver={order.isDelivered} ></CartCardProduct>)}   
+                                {order.cartItems.map((item) => <CartCardProduct key={item._id} item={item} order={order.createdAt} deliver={order.isDelivered} ></CartCardProduct>)}   
                         </section> 
                         
                 
@@ -45,39 +49,39 @@ import { orderDetail } from '../../backend/Actions/orderActions';
                     <section className="bill">
 
                         <div className='flex center'>
-                            <h1>Résumé de vos informations</h1>
+                            <u><h5>Résumé de vos informations</h5></u>
                         </div>
-                            <h4>{order.shippingAddress.fullName} </h4>
+                            <p>{order.shippingAddress.fullName} </p>
                         
-                            <h4>{order.shippingAddress.address}, {order.shippingAddress.postalCode}, {order.shippingAddress.city}  </h4>
+                            <p>{order.shippingAddress.address}, {order.shippingAddress.postalCode}, {order.shippingAddress.city}  </p>
                         
-                            <h4>{order.shippingAddress.country} </h4>
+                            <p>{order.shippingAddress.country} </p>
                         
                         <div className=" flex center" id="title-bill">
-                            <h1>Resumé de votre panier</h1>
+                            <u><h5>Resumé de votre panier</h5></u>
                         </div>
                         <div className='flex space-between'>
-                            <h4>Nombres d'articles</h4>
-                            <h4>{order.cartItems.length}</h4>
+                            <p>Nombres d'articles</p>
+                            <p>{order.cartItems.length}</p>
                         </div>
                         <div className='flex space-between'>
-                            <h4>Articles</h4>
-                            <h4>{(order.totalPrice).toFixed(2)}€</h4>
+                            <p>Articles</p>
+                            <p>{(order.totalPrice).toFixed(2)}€</p>
                         </div>
                         <div className='flex space-between'>
-                            <h4>Reduction</h4>
-                            <h4>0</h4>
+                            <p>Reduction</p>
+                            <p>0</p>
                         </div>
                         <div className='flex space-between'>
-                            <h4>Frais de Livraison</h4>
-                            <h4>{(order.deliveryPrice.toFixed(2))}€</h4>
+                            <p>Frais de Livraison</p>
+                            <p>{(order.deliveryPrice.toFixed(2))}€</p>
                         </div>
                         <div className='flex space-between'>
-                            <h2>Total Prix</h2>
-                            <h2>{(order.totalPrice + order.deliveryPrice).toFixed(2)}€</h2>
+                            <u><h5>Total Prix</h5></u>
+                            <h5>{(order.totalPrice + order.deliveryPrice).toFixed(2)}€</h5>
                         </div>
 
-                        <Paypal></Paypal>                       
+                        {!order.isPaid && <Paypal orderDetail={order} error={errorPay}></Paypal>}                      
                         {loading && <LoadingBox></LoadingBox>}
                         {error && <MessageBox variant="danger">{error}</MessageBox>}
                         {!order.isPaid ?  <MessageBox variant="danger">Command isn't Paid</MessageBox> : <MessageBox variant="success">Command is Paid</MessageBox>}

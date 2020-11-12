@@ -2,17 +2,17 @@ import React, { useEffect, useState } from 'react'
 import {PayPalButton} from 'react-paypal-button-v2'
 import { useDispatch, useSelector } from 'react-redux'
 import Axios from 'axios';
+import { payOrder } from '../../backend/Actions/orderActions';
+import { MessageBox } from '../Helper/MessageBox';
 
-const Paypal = () => {
+const Paypal = (props) => {
 
     const [sdkReady, setSdkReady] =  useState(false);
-    const orderDetails = useSelector(state => state.orderDetails)
-    const {order} = orderDetails
 
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if(order){
+        if(props.orderDetail){
             const addPaypalScript = async () => {
                 const {data} = await Axios.get('api/config/paypal');
                 console.log(data)
@@ -26,7 +26,7 @@ const Paypal = () => {
                 document.body.appendChild(script)
             }
         
-            if(!order.isPaid){
+            if(!props.orderDetail.isPaid){
                 if(!window.paypal) {
                     addPaypalScript();
                 } else{
@@ -35,14 +35,24 @@ const Paypal = () => {
             }
         }
         
-    }, [order, sdkReady])
+    }, [props, sdkReady])
 
-    const successPaymentHandler = () => {
+    const successPaymentHandler = (paymentResult) => {
         
+        dispatch(payOrder(props.orderDetail, paymentResult))
        
     }
     return (
-        <PayPalButton amount={order.totalPrice} onSuccess={successPaymentHandler}></PayPalButton>
+        <div>
+            {props.error ? 
+                <div>
+                    <MessageBox variant='danger'>{props.error}</MessageBox>
+                    <PayPalButton amount={props.orderDetail.totalPrice} onSuccess={successPaymentHandler}></PayPalButton>
+                </div> 
+                :
+                <PayPalButton amount={props.orderDetail.totalPrice} onSuccess={successPaymentHandler}></PayPalButton>
+            }
+        </div>
     )
 
 }

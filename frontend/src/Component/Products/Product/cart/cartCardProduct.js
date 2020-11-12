@@ -18,43 +18,47 @@ const CartCardProduct = (props)  => {
                 <aside id="card-cart-product-aside">
                     <section id='card-cart-product-aside-section-top'>
                         <div id='card-cart-product-aside-section-top-infos'>
-                            <h1> {props.item.name}</h1>
-                            <h3> {props.item.brand}</h3>
-                            <p> {props.item.countInStock}</p>
-                            <div className='flex space-between details'>
-                                <p>couleur</p>
-                                <p>{props.item.color}</p>
+                        
+                                <h4>{props.item.brand} - <i> {props.item.name}</i></h4>  
+                            
+                            <div className='flex space-between details center'>
+                                <h5>couleur</h5>
+                                <b><p>{props.item.color}</p></b>
                             </div>
-                            <div className='flex space-between details'>
-                                <p>Taille</p>
-                                <p>{props.item.size}</p>
+                            <div className='flex space-between details center'>
+                                <h5>Taille</h5>
+                                <b><p>{props.item.size}</p></b>
                             </div>
-                            <div className='flex space-between details'>
-                                <p>Quantité</p>
-                                <p>{props.item.qty}</p>
+                            <div className='flex space-between details center'>
+                                <h5>Quantité</h5>
+                                <b><p>{props.item.qty}</p></b>
                             </div>
-                            <div className='flex space-between details'>
-                                <p>Référence</p>
-                                <p>{props.item._id}</p>
+                            <div className='flex space-between details center'>
+                                <h5>Référence</h5>
+                                <b><p>{props.item._id}</p></b>
                             </div>
                         </div>
                         <div id='card-cart-product-aside-section-top-price'>
                             <div className='element'>
                                 <input type="text" defaultValue="Code promo" />
-                                <h2>{props.item.price}€</h2>
+                                <h4>{props.item.price}€</h4>
                             </div>
                         </div>
 
                     </section>
-                        {!props.deliver ? 
+                        
                         <div id ='card-cart-product-aside-section-bottom'>
                         <section className='flex space-between'>
                             <button className="primary button-card-cart-product"> Modifer</button>
                             <button className="primary button-card-cart-product" onClick={ (e) => deleteItemHandler(props.item)} > Supprimer</button>
-                        </section>
+                        </section> 
+                        {props.order && !props.deliver ?
                         <MessageBox variant='danger'>Order Isn't deliverd yet</MessageBox>
-                        </div> : <MessageBox variant='success'>Order Is delivered</MessageBox>
+                        : props.order && props.deliver ? <MessageBox variant='success'>Order Is delivered</MessageBox>
+                        : ''
                         }
+                        </div> 
+                        
                         
                 </aside>
         </div>

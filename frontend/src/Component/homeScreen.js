@@ -10,19 +10,19 @@ function homeScreen(props) {
       <section className="promos-section">
         <a href='anchor' className="promos dress">
           <img alt="fix"  src="/image/dress.jpg" />
-          <h1>Dress & SKirt</h1>
+          <h4>Dress & SKirt</h4>
         </a>
         <a href='anchor' className="promos pant">
           <img alt="fix" src="/image/pants.jpeg" />
-          <h1>Pants</h1>
+          <h4>Pants</h4>
         </a>
         <a href='anchor' className="promos vest">
           <img alt="fix" src="/image/vest.jpeg" />
-          <h1>Top</h1>
+          <h4>Top</h4>
         </a>
         <a href='anchor' className="promos accesories">
           <img alt="fix" src="/image/accesories.jpg" />
-          <h1>Accesories</h1>
+          <h4>Accesories</h4>
         </a>
       </section>
 
