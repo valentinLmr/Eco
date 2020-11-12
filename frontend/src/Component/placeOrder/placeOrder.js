@@ -41,6 +41,9 @@ import { ORDER_RESET_REQUEST } from '../../backend/constants/order';
         if (success) {
             props.history.push(`/orders/${order._id}`);
             dispatch({ type: ORDER_RESET_REQUEST });
+            dispatch({ type: CART_EMPTY });
+            localStorage.removeItem('cartItems')
+            
           }
         }, [dispatch, order, props.history, success]);
 
@@ -75,36 +78,41 @@ import { ORDER_RESET_REQUEST } from '../../backend/constants/order';
                     <section className="bill">
 
                         <div className='flex center'>
-                            <h1>Résumé de vos informations</h1>
+                            <u><h5>Résumé de vos informations</h5></u>
                         </div>
-                            <h4>{shippingAddress.fullName} </h4>
                         
-                            <h4>{shippingAddress.address}, {shippingAddress.postalCode}, {shippingAddress.city}  </h4>
-                        
-                            <h4>{shippingAddress.country} </h4>
+                        <div>
+                            <p>{shippingAddress.fullName} </p>
+                        </div>
+                        <div>
+                            <p>{shippingAddress.address}, {shippingAddress.postalCode}, {shippingAddress.city}  </p>
+                        </div>
+                        <div>
+                            <p>{shippingAddress.country} </p>
+                        </div>
                         
                         <div className=" flex center" id="title-bill">
-                            <h1>Resumé de votre panier</h1>
+                            <u><h5>Resumé de votre panier</h5></u>
                         </div>
                         <div className='flex space-between'>
-                            <h4>Nombres d'articles</h4>
-                            <h4>{cartItems.length}</h4>
+                            <p>Nombres d'articles</p>
+                            <p>{cartItems.length}</p>
                         </div>
                         <div className='flex space-between'>
-                            <h4>Articles</h4>
-                            <h4>{(cart.totalPrice).toFixed(2)}€</h4>
+                            <p>Articles</p>
+                            <p>{(cart.totalPrice).toFixed(2)}€</p>
                         </div>
                         <div className='flex space-between'>
-                            <h4>Reduction</h4>
-                            <h4>0</h4>
+                            <p>Reduction</p>
+                            <p>0</p>
                         </div>
                         <div className='flex space-between'>
-                            <h4>Frais de Livraison</h4>
-                            <h4>{(cart.deliveryPrice.toFixed(2))}€</h4>
+                            <p>Frais de Livraison</p>
+                            <p>{(cart.deliveryPrice.toFixed(2))}€</p>
                         </div>
                         <div className='flex space-between'>
-                            <h2>Total Prix</h2>
-                            <h2>{(cart.totalPrice + cart.deliveryPrice).toFixed(2)}€</h2>
+                            <h5>Total Prix</h5>
+                            <h5>{(cart.totalPrice + cart.deliveryPrice).toFixed(2)}€</h5>
                         </div>
                             <button
                                 type='button'

@@ -12,6 +12,7 @@ export const addToCart = (productId, colorSelected,  sizeSelected) => async(disp
         _id : data._id,
         name: data.name,
         image: data.image,
+        brand: data.brand,
         price: data.price,
         color: colorSelected,
         size: sizeSelected,

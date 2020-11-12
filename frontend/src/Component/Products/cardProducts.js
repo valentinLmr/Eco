@@ -13,10 +13,10 @@ function product(props) {
       </div>
       <div className="card-trip-infos">
         <div>
-          <h2>{props.product.name}</h2>
-          <p>{props.product.brand}</p>
+          <h5>{props.product.name}</h5>
+          <p><i>{props.product.brand}</i></p>
         </div>
-        <h2 className="card-trip-pricing">{props.product.price}</h2>
+        <h5 className="card-trip-pricing">{props.product.price} €</h5>
       </div>
     </Link>
   );

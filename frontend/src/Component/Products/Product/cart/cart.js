@@ -45,27 +45,27 @@ const Cart = (props) => {
                 </section>
                 <section className="bill">
                     <div className=" flex center" id="title-bill">
-                        <h1>Resumé de votre panier</h1>
+                        <h5>Resumé de votre panier</h5>
                     </div>
                     <div className='flex space-between'>
-                        <h4>Nombres d'articles</h4>
-                        <h4>{cartItems.length}</h4>
+                        <p>Nombres d'articles</p>
+                        <p>{cartItems.length}</p>
                     </div>
                     <div className='flex space-between'>
-                        <h4>Total Prix</h4>
-                        <h4>{cartItems.reduce((a,c) => a + c.price, 0)}€</h4>
+                        <p>Total Prix</p>
+                        <p>{cartItems.reduce((a,c) => a + c.price, 0)}€</p>
                     </div>
                     <div className='flex space-between'>
-                        <h4>Reduction</h4>
-                        <h4>0€</h4>
+                        <p>Reduction</p>
+                        <p>0€</p>
                     </div>
                     <div className='flex space-between'>
-                        <h4>Frais de Livraison</h4>
-                        <h4>GRATUIT</h4>
+                        <p>Frais de Livraison</p>
+                        <p>GRATUIT</p>
                     </div>
                     <div className='flex space-between'>
-                        <h2>Total Prix</h2>
-                        <h2>{cartItems.reduce((a,c) => a + c.price, 0)}€</h2>
+                        <h5>Total Prix</h5>
+                        <h5>{cartItems.reduce((a,c) => a + c.price, 0)}€</h5>
                     </div>
                     <button
                         type='button'

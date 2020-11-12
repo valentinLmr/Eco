@@ -40,12 +40,8 @@ const Product = (props) => {
       <aside className="product-side-infos">
         <div className="product-infos">
           <div className="product-name">
-            <h4>{product.band}</h4>
-            <h1>{product.name}</h1>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <p style={{ textDecoration: "underline" }}>Détails</p>
-              <p>5/5</p>
-            </div>
+              <h3>{product.name} - <i>{product.brand}</i></h3>
+              <p style={{ textDecoration: "underline" }}>Détails</p> 
           </div>
           <div className="details-product">
             <div className="detail couleur-product">
@@ -93,10 +89,12 @@ const Product = (props) => {
             <div className="detail">
               <p>Guide des tailles</p>
             </div>
-            <div className="detail">
+            <div className="detail center">
               <input type="text" defaultValue="Code promo" />
             </div>
-            <h2>59.99€</h2>
+            <div className='flex center'>
+            <h4>59.99€</h4>
+            </div>
           </div>
           <div style={{ display: "flex", justifyContent: "center" }}>
             <button
