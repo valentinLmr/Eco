@@ -2,8 +2,7 @@
   padding: 1rem;
   border: 0.1rem solid transparent;
   border-radius: 0.5rem;
-  width: 100%;
-  height: 10%;
+  margin: 0.3rem 0;
 }
 .alert-info {
   color: #2020a0;

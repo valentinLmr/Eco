@@ -18,7 +18,7 @@
 #card-cart-product-aside-section-top {
   display: flex;
   justify-content: space-evenly;
-  height: 80%;
+  height: 70%;
 }
 
 #card-cart-product-aside-section-top-infos {
@@ -50,14 +50,12 @@
 }
 
 #card-cart-product-aside-section-bottom {
-  height: 20%;
-  display: flex;
-  justify-content: space-evenly;
+  width: 80%;
+  margin: 0 auto;
 }
 
 .button-card-cart-product {
   width: 15rem;
-  height: 4rem;
   color: white;
   border: none;
   border-radius: 5px;
@@ -77,11 +75,9 @@
 .space-between {
   justify-content: space-between;
 }
-.flex {
-  display: flex;
-}
-.flex {
-  display: flex;
+
+.space-evenly {
+  justify-content: space-evenly;
 }
 
 .details {

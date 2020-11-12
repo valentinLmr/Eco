@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import {PayPalButton} from 'react-paypal-button-v2'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { createOrder } from '../../backend/Actions/orderActions';
-import { ORDER_RESET_REQUEST } from '../../backend/constants/order';
 import CheckOutStep from '../checkOut/checkOutSteps';
 import { MessageBox } from '../Helper/MessageBox';
 import { LoadingBox } from '../Helper/LoadingBox';
 
 import CartCardProduct from '../Products/Product/cart/cartCardProduct';
-import Axios from 'axios';
 import { CART_EMPTY } from '../../backend/constants/cartConstant';
+import { ORDER_RESET_REQUEST } from '../../backend/constants/order';
+
 
 
  const PlaceOrder = (props) => {
@@ -24,8 +23,7 @@ import { CART_EMPTY } from '../../backend/constants/cartConstant';
     }
 
     const orderCreate = useSelector(state => state.orderCreate)
-    const {loading, success, error, order } = orderCreate
-    const [sdkReady, setSdkReady] =  useState(false);
+    const {loading,success, error, order } = orderCreate
 
     cart.itemsPrice = cartItems.reduce((a,c) => a + c.price, 0)
     cart.totalPrice = cartItems.reduce((a,c) => a + c.price, 0)
@@ -40,36 +38,13 @@ import { CART_EMPTY } from '../../backend/constants/cartConstant';
     }
 
     useEffect(() => {
-        if(success){
-            const addPaypalScript = async () => {
-                const {data} = await Axios.get('api/config/paypal');
-                const script = document.createElement('script');
-                script.type='text/javascript';
-                script.src=`https://www.paypal.com/sdk/js?client-id=${data}`
-                script.async = true
-                script.onload = () => {
-                    setSdkReady(true)
-                }
-                document.body.appendChild(script)
-            }
-        
-            if(!order.isPaid){
-                if(!window.paypal) {
-                    addPaypalScript();
-                } else{
-                    setSdkReady(true)
-                }
-            }
-            // props.history.push(`/order/${order._id}`)
-        }
-        
-    }, [order, success, sdkReady])
+        if (success) {
+            props.history.push(`/orders/${order._id}`);
+            dispatch({ type: ORDER_RESET_REQUEST });
+          }
+        }, [dispatch, order, props.history, success]);
 
-    const successPaymentHandler = () => {
-        dispatch({type: ORDER_RESET_REQUEST});
-        dispatch({type: CART_EMPTY});
-        localStorage.removeItem('cartItems');
-    }
+   
 
     return (
         <div>
@@ -81,13 +56,22 @@ import { CART_EMPTY } from '../../backend/constants/cartConstant';
                     retour à votre shopping
                 </Link>
                 <div style={{display: 'flex', width: "90%", margin: "0 auto"}}>
-                    <section className='cardsOfProductCart'>
-                        {cartItems.length === 0 ?                 <div className='card_cart_product'>
-                    <MessageBox>Cart is empty <Link to='/'>Go to Shopping</Link></MessageBox> </div> :
-                    cartItems.map((item) => 
-                            <CartCardProduct key={item._id} item={item}></CartCardProduct>
-                        )}
-                    </section>
+
+                    {order ? 
+                        <section className='cardsOfProductCart'>
+                            {order.cartItems.map((item) =>  <CartCardProduct key={item._id} item={item}></CartCardProduct>)}
+                        </section> :
+                        <section className='cardsOfProductCart'>
+                            {cartItems.length === 0 ?                 
+                                <div className='card_cart_product'>
+                                    <MessageBox><Link to='/'>Keep Shopping</Link></MessageBox> 
+                                </div> :
+                                cartItems.map((item) => <CartCardProduct key={item._id} item={item}></CartCardProduct>)
+                            }
+                        </section> 
+                        
+                    }
+                    
                     <section className="bill">
 
                         <div className='flex center'>
@@ -122,18 +106,13 @@ import { CART_EMPTY } from '../../backend/constants/cartConstant';
                             <h2>Total Prix</h2>
                             <h2>{(cart.totalPrice + cart.deliveryPrice).toFixed(2)}€</h2>
                         </div>
-
-                        {!order ? 
                             <button
                                 type='button'
                                 className="primary block button-product-add"
                                 onClick={placeOrderHandler}
                                 >
                                 Valider
-                            </button> :
-                            <PayPalButton amount={order.totalPrice} onSuccess={successPaymentHandler}></PayPalButton>
-                            }
-                        
+                            </button>     
                         {loading && <LoadingBox></LoadingBox>}
                         {error && <MessageBox variant="danger">{error}</MessageBox>}
                     </section>

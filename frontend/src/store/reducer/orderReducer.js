@@ -1,4 +1,4 @@
-import { ORDER_CREATE_REQUEST, ORDER_FAIL_REQUEST, ORDER_RESET_REQUEST, ORDER_SUCCESS_REQUEST } from "../../backend/constants/order";
+import { ORDER_CREATE_REQUEST, ORDER_DETAILS_FAIL, ORDER_DETAILS_REQUEST, ORDER_DETAILS_SUCCESS, ORDER_FAIL_REQUEST, ORDER_RESET_REQUEST, ORDER_SUCCESS_REQUEST } from "../../backend/constants/order";
 
 export const orderCreateReducer = (state = {}, action) => {
 
@@ -15,4 +15,17 @@ export const orderCreateReducer = (state = {}, action) => {
         return state
     }   
 
+}
+
+export const orderDetailReducer = (state = {loading:true, order:{}}, action) => {
+    switch(action.type){
+        case ORDER_DETAILS_REQUEST:
+            return {...state, loading:true}
+        case ORDER_DETAILS_SUCCESS:
+            return {...state, loading: false, order: action.payload}
+        case ORDER_DETAILS_FAIL: 
+            return {...state, loading: false, error: action.payload}
+        default:
+        return state
+    }
 }

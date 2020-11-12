@@ -12,6 +12,7 @@ import ShippingAddress from "./Component/Shipping/ShippingAddress";
 import PaymentMethod from "./Component/payment/payment";
 import { signout } from "./backend/Actions/userActions";
 import PlaceOrder from "./Component/placeOrder/placeOrder";
+import order from './Component/placeOrder/order';
 
 function App() {
 
@@ -74,13 +75,13 @@ function App() {
         <main className="main">
           <Route path='/cart/:id?' component={Cart} />
           <Route path="/products/:id" component={Product} />
+          <Route path='/orders/:id' component={order}/>
           <Route path="/products" component={ProductsScreen} exact />
           <Route path="/signin"  component={SignIn}></Route>
           <Route path="/register"  component={Register}></Route>
           <Route path='/shipping' component={ShippingAddress}></Route>
           <Route path='/payment' component={PaymentMethod}></Route>
           <Route path='/placeorder' component={PlaceOrder}></Route>
-
           <Route path="/"  component={HomeScreen} exact/>
         </main>
         <footer className="footer">

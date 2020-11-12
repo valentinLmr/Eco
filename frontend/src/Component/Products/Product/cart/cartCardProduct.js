@@ -1,6 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { deleteFromCar } from '../../../../backend/Actions/cartAction'
+import { MessageBox } from '../../../Helper/MessageBox'
 import './cartCardProduct.css'
 
 const CartCardProduct = (props)  => {
@@ -22,11 +23,11 @@ const CartCardProduct = (props)  => {
                             <p> {props.item.countInStock}</p>
                             <div className='flex space-between details'>
                                 <p>couleur</p>
-                                <p>{props.item.color.color}</p>
+                                <p>{props.item.color}</p>
                             </div>
                             <div className='flex space-between details'>
                                 <p>Taille</p>
-                                <p>{props.item.size.size}</p>
+                                <p>{props.item.size}</p>
                             </div>
                             <div className='flex space-between details'>
                                 <p>Quantité</p>
@@ -45,10 +46,16 @@ const CartCardProduct = (props)  => {
                         </div>
 
                     </section>
-                    <section id='card-cart-product-aside-section-bottom' >
-                        <button className="primary button-card-cart-product"> Modifer</button>
-                        <button className="primary button-card-cart-product" onClick={ (e) => deleteItemHandler(props.item)} > Supprimer</button>
-                    </section>
+                        {!props.deliver ? 
+                        <div id ='card-cart-product-aside-section-bottom'>
+                        <section className='flex space-between'>
+                            <button className="primary button-card-cart-product"> Modifer</button>
+                            <button className="primary button-card-cart-product" onClick={ (e) => deleteItemHandler(props.item)} > Supprimer</button>
+                        </section>
+                        <MessageBox variant='danger'>Order Isn't deliverd yet</MessageBox>
+                        </div> : <MessageBox variant='success'>Order Is delivered</MessageBox>
+                        }
+                        
                 </aside>
         </div>
     )
