@@ -12,7 +12,8 @@ import ShippingAddress from "./Component/Shipping/ShippingAddress";
 import PaymentMethod from "./Component/payment/payment";
 import { signout } from "./backend/Actions/userActions";
 import PlaceOrder from "./Component/placeOrder/placeOrder";
-import order from './Component/placeOrder/order';
+import Order from './Component/placeOrder/order';
+import OrdersHistory from './Component/placeOrder/orderHistory'
 
 function App() {
 
@@ -50,6 +51,8 @@ function App() {
               </Link>  
               <ul className='dropdown-content'> 
                 <Link to='#signout' onClick={e => signoutHandler(e)}>Sign Out</Link>
+                <br/>
+                <Link to='/ordershistory'>Order History</Link>
               </ul>
             </div>
             ) : (
@@ -75,13 +78,14 @@ function App() {
         <main className="main">
           <Route path='/cart/:id?' component={Cart} />
           <Route path="/products/:id" component={Product} />
-          <Route path='/orders/:id' component={order}/>
+          <Route path='/orders/:id' component={Order}/>
           <Route path="/products" component={ProductsScreen} exact />
           <Route path="/signin"  component={SignIn}></Route>
           <Route path="/register"  component={Register}></Route>
           <Route path='/shipping' component={ShippingAddress}></Route>
           <Route path='/payment' component={PaymentMethod}></Route>
           <Route path='/placeorder' component={PlaceOrder}></Route>
+          <Route path='/ordershistory' component={OrdersHistory}></Route>
           <Route path="/"  component={HomeScreen} exact/>
         </main>
         <footer className="footer">

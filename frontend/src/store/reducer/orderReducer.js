@@ -1,4 +1,4 @@
-import { ORDER_CREATE_REQUEST, ORDER_DETAILS_FAIL, ORDER_DETAILS_REQUEST, ORDER_DETAILS_SUCCESS, ORDER_FAIL_REQUEST, ORDER_PAY_FAIL, ORDER_PAY_REQUEST, ORDER_PAY_RESET, ORDER_PAY_SUCCESS, ORDER_RESET_REQUEST, ORDER_SUCCESS_REQUEST } from "../../backend/constants/order";
+import { ORDER_CREATE_REQUEST, ORDER_DETAILS_FAIL, ORDER_DETAILS_REQUEST, ORDER_DETAILS_SUCCESS, ORDER_FAIL_REQUEST, ORDER_MINE_LIST_FAIL, ORDER_MINE_LIST_REQUEST, ORDER_MINE_LIST_SUCCESS, ORDER_PAY_FAIL, ORDER_PAY_REQUEST, ORDER_PAY_RESET, ORDER_PAY_SUCCESS, ORDER_RESET_REQUEST, ORDER_SUCCESS_REQUEST } from "../../backend/constants/order";
 
 export const orderCreateReducer = (state = {}, action) => {
 
@@ -45,5 +45,18 @@ export const orderPayReducer = ( state = {}, action) => {
         default:
 
         return state
+    }
+}
+
+export const orderMineListReducer = (state = {orders: []}, action) => {
+    switch(action.type){
+        case ORDER_MINE_LIST_REQUEST:
+            return {loading: true}
+        case ORDER_MINE_LIST_SUCCESS:
+            return {loading: false, orders: action.payload}
+        case ORDER_MINE_LIST_FAIL:
+            return {loading: false, error: action.payload}
+        default:
+            return state
     }
 }
