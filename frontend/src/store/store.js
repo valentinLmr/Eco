@@ -5,7 +5,7 @@ import filterReducer from './reducer/filtersReducer';
 import { orderCreateReducer, orderDetailReducer, orderMineListReducer, orderPayReducer } from './reducer/orderReducer';
 import {productListReducer} from './reducer/productListReducer'
 import { productDetailsReducer } from './reducer/productReducer';
-import { userRegisterReducer, userSigninReducer } from './reducer/userReducer';
+import { userDetailsReducer, userRegisterReducer, userSigninReducer } from './reducer/userReducer';
 
 const initialState = {
     userSignin: {
@@ -30,7 +30,7 @@ const reducer = combineReducers({
     orderDetails : orderDetailReducer,
     orderPay: orderPayReducer,
     orderMineList: orderMineListReducer,
-
+    userDetails: userDetailsReducer,
 })
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore( reducer, initialState, composeEnhancer(applyMiddleware(thunk))

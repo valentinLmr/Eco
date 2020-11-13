@@ -14,6 +14,7 @@ import { signout } from "./backend/Actions/userActions";
 import PlaceOrder from "./Component/placeOrder/placeOrder";
 import Order from './Component/placeOrder/order';
 import OrdersHistory from './Component/placeOrder/orderHistory'
+import Profil from "./Component/User/profil";
 
 function App() {
 
@@ -50,9 +51,20 @@ function App() {
                 {userInfo.name} <i className='fa fa-caret-down'></i>{' '}
               </Link>  
               <ul className='dropdown-content'> 
+
+              <li>
                 <Link to='#signout' onClick={e => signoutHandler(e)}>Sign Out</Link>
-                <br/>
+              </li>
+              
+              <li>
+                <Link to='/profile'>Profile</Link>
+              </li>
+
+              <li>
                 <Link to='/ordershistory'>Order History</Link>
+              </li>
+                
+                
               </ul>
             </div>
             ) : (
@@ -86,6 +98,7 @@ function App() {
           <Route path='/payment' component={PaymentMethod}></Route>
           <Route path='/placeorder' component={PlaceOrder}></Route>
           <Route path='/ordershistory' component={OrdersHistory}></Route>
+          <Route path='/profile' component={Profil}/>
           <Route path="/"  component={HomeScreen} exact/>
         </main>
         <footer className="footer">
