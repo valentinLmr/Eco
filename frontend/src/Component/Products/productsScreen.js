@@ -1,6 +1,6 @@
 import React, { useEffect} from "react";
 import CardProducts from './cardProducts';
-import FilterBar from './filterbar';
+import FilterBar from '../Helper/filterbar';
 import { MessageBox } from "../Helper/MessageBox";
 import { LoadingBox } from "../Helper/LoadingBox"
 import { useDispatch, useSelector } from "react-redux";

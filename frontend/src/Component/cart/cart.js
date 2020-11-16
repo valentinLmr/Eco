@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import './bill.css'
-import { addToCart } from '../../../../backend/Actions/cartAction'
+import './cart.css'
+import { addToCart } from '../../backend/Actions/cartAction'
 import { useDispatch, useSelector } from 'react-redux'
-import { MessageBox } from '../../../Helper/MessageBox'
+import { MessageBox } from '../Helper/MessageBox'
 import CartCardProduct from './cartCardProduct'
 
 const Cart = (props) => {

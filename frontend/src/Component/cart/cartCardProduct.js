@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { deleteFromCar } from '../../../../backend/Actions/cartAction'
-import { MessageBox } from '../../../Helper/MessageBox'
+import { deleteFromCar } from '../../backend/Actions/cartAction'
+import { MessageBox } from '../Helper/MessageBox'
 import './cartCardProduct.css'
 
 const CartCardProduct = (props)  => {
