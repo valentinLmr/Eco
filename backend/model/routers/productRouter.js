@@ -7,6 +7,24 @@ import Size from '../sizeModel.js'
 import { isAdmin, isAuth } from '../../utils.js';
 const productRouter = express.Router();
 
+productRouter.put('/:id', isAuth, isAdmin, expressAsyncHandler(async(req, res) => {
+    const productId = req.params.id
+    console.log(productId)
+    const product = await Product.findById(productId);
+    if(product) {
+        product.name = req.body.name;
+        product.price = req.body.price;
+        product.image = req.body.image;
+        product.category = req.body.category;
+        product.description = req.body.description;
+        product.brand = req.body.brand;
+
+        const updatedProduct = await product.save()
+        res.send(updatedProduct)
+    } else {
+        res.status(404).send({message: 'product not found'})
+    }
+}));
 
 
 productRouter.get('/', expressAsyncHandler(async(req ,res) => {
