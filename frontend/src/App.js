@@ -19,6 +19,7 @@ import PrivateRoute from "./Component/User/privateRoute";
 import AdminRoute from "./Component/User/adminRoute";
 
 import ProductList from "./Component/Products/productList";
+import ProductEdit from "./Component/Products/editProduct";
 
 function App() {
 
@@ -113,6 +114,7 @@ function App() {
         <main className="main">
           <Route path='/cart/:id?' component={Cart} />
           <Route path="/products/:id" component={Product} exact/>
+          <Route path="/products/:id/edit" component={ProductEdit} />
           <Route path='/orders/:id' component={Order}/>
           <Route path="/products" component={ProductsScreen} exact />
           <Route path="/signin"  component={SignIn}></Route>
