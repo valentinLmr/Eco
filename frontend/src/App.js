@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Link } from "react-router-dom";
 import HomeScreen from "./Component/homeScreen";
 import ProductsScreen from "./Component/Products/productsScreen";
 import Product from "./Component/Products/Product/Product";
-import Cart from './Component/Products/Product/cart/cart'
+import Cart from './Component/cart/cart'
 import SignIn from "./Component/User/signIn";
 import "./App.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,6 +16,9 @@ import Order from './Component/placeOrder/order';
 import OrdersHistory from './Component/placeOrder/orderHistory'
 import Profil from "./Component/User/profil";
 import PrivateRoute from "./Component/User/privateRoute";
+import AdminRoute from "./Component/User/adminRoute";
+
+import ProductList from "./Component/Products/productList";
 
 function App() {
 
@@ -71,6 +74,25 @@ function App() {
             ) : (
             <Link to="/signin"> SignIn</Link>
             )}
+            {userInfo && userInfo.isAdmin && (
+              <div className='dropdown'>
+                <Link> Admin <i className='fa fa-caret-down'></i></Link>
+                <ul className='dropdown-content'> 
+                <li>
+                  <Link to='dashboard'> Dashboard</Link>
+                </li>
+                <li>
+                  <Link to='/productlist'> Products</Link>
+                </li>
+                <li>
+                  <Link to='/orderlist'> Orders</Link>
+                </li>
+                <li>
+                  <Link to='/userlist'> Users</Link>
+                </li>
+                </ul>
+              </div>
+            )}
           </div>
         </header>
         <aside className="sidebar">
@@ -100,6 +122,7 @@ function App() {
           <Route path='/placeorder' component={PlaceOrder}></Route>
           <Route path='/ordershistory' component={OrdersHistory}></Route>
           <PrivateRoute path='/profile' component={Profil}/>
+          <AdminRoute path='/productlist' component={ProductList}></AdminRoute>
           <Route path="/"  component={HomeScreen} exact/>
         </main>
         <footer className="footer">

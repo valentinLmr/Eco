@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { MessageBox } from '../Helper/MessageBox';
 import { LoadingBox } from '../Helper/LoadingBox';
 
-import CartCardProduct from '../Products/Product/cart/cartCardProduct';
+import CartCardProduct from '../cart/cartCardProduct';
 import Paypal from '../payment/paypal';
 import { orderDetail } from '../../backend/Actions/orderActions';
 import {ORDER_PAY_RESET} from '../../backend/constants/order'

@@ -6,7 +6,7 @@ import CheckOutStep from '../checkOut/checkOutSteps';
 import { MessageBox } from '../Helper/MessageBox';
 import { LoadingBox } from '../Helper/LoadingBox';
 
-import CartCardProduct from '../Products/Product/cart/cartCardProduct';
+import CartCardProduct from '../cart/cartCardProduct';
 import { CART_EMPTY } from '../../backend/constants/cartConstant';
 import { ORDER_RESET_REQUEST } from '../../backend/constants/order';
 
