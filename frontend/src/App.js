@@ -15,6 +15,7 @@ import PlaceOrder from "./Component/placeOrder/placeOrder";
 import Order from './Component/placeOrder/order';
 import OrdersHistory from './Component/placeOrder/orderHistory'
 import Profil from "./Component/User/profil";
+import PrivateRoute from "./Component/User/privateRoute";
 
 function App() {
 
@@ -98,7 +99,7 @@ function App() {
           <Route path='/payment' component={PaymentMethod}></Route>
           <Route path='/placeorder' component={PlaceOrder}></Route>
           <Route path='/ordershistory' component={OrdersHistory}></Route>
-          <Route path='/profile' component={Profil}/>
+          <PrivateRoute path='/profile' component={Profil}/>
           <Route path="/"  component={HomeScreen} exact/>
         </main>
         <footer className="footer">
