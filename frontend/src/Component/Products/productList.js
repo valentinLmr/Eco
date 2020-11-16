@@ -1,24 +1,41 @@
-import { PromiseProvider } from 'mongoose';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { listProducts } from '../../backend/Actions/productActions';
+import { createProduct, listProducts } from '../../backend/Actions/productActions';
+import { CREATE_PRODUCT_RESET } from '../../backend/constants/productConstant';
 import { LoadingBox } from '../Helper/LoadingBox';
 import { MessageBox } from '../Helper/MessageBox';
 
-const ProductList = () => {
+const ProductList = (props) => {
+    
     const productList = useSelector( state => state.productList)
     const {loading, error, allProducts} = productList;
+
+    const createdProduct = useSelector( state => state.createdProduct)
+    const {error: errorCreatedProduct, loading: loadingCreatedProduct, success: successCreatedProduct, product: productCreatedProduct} = createdProduct;
     const dispatch = useDispatch();
     useEffect(() => {
+        if(successCreatedProduct) {
+            props.history.push(`/products/${productCreatedProduct._id}/edit`)
+            dispatch({type: CREATE_PRODUCT_RESET});
+
+        }
         dispatch(listProducts())
-    }, [dispatch])
+    }, [createdProduct, dispatch, props.history, successCreatedProduct])
 
     const deleteHandler = () => {
 
     }
+    const createHandler = () => {
+        dispatch(createProduct());
+    }
     return ( 
 <div>
-    <h3> Products List</h3>
+    <div>
+        <h3> Products List</h3>
+        <button type='button' className='primary' onClick={createHandler}> Create product</button>
+    </div>
+    {loadingCreatedProduct && <LoadingBox></LoadingBox>}
+    {errorCreatedProduct && <MessageBox variant='danger'>{error}</MessageBox>}
     {loading ? <LoadingBox></LoadingBox> :
     error ? <MessageBox variant='danger'>{error}</MessageBox> :
     <table className='table'>
@@ -46,11 +63,12 @@ const ProductList = () => {
                         <td>{product.brand}</td>
                         <td>
                             <button type='button' className='small'
-                            onCick={() =>PromiseProvider.hsitory.push(`/product/${product._id}/edit`)}>
+                            onClick={() =>props.history.push(`/product/${product._id}/edit`)}>
                                 Edit
                             </button>
                             <button type='button' className='small'
-                            onCick={() => deleteHandler(product)}>
+                            // onClick={() => deleteHandler(product)}
+                            >
                                 Delete
                             </button>
                         </td>

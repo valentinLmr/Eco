@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {PayPalButton} from 'react-paypal-button-v2'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import Axios from 'axios';
 import { payOrder } from '../../backend/Actions/orderActions';
 import { MessageBox } from '../Helper/MessageBox';

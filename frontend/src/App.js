@@ -76,7 +76,7 @@ function App() {
             )}
             {userInfo && userInfo.isAdmin && (
               <div className='dropdown'>
-                <Link> Admin <i className='fa fa-caret-down'></i></Link>
+                <Link to='#'> Admin <i className='fa fa-caret-down'></i></Link>
                 <ul className='dropdown-content'> 
                 <li>
                   <Link to='dashboard'> Dashboard</Link>
@@ -112,7 +112,7 @@ function App() {
         </aside>
         <main className="main">
           <Route path='/cart/:id?' component={Cart} />
-          <Route path="/products/:id" component={Product} />
+          <Route path="/products/:id" component={Product} exact/>
           <Route path='/orders/:id' component={Order}/>
           <Route path="/products" component={ProductsScreen} exact />
           <Route path="/signin"  component={SignIn}></Route>

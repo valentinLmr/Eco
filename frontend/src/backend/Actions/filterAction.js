@@ -27,6 +27,9 @@ export const filteringProduct = (actionType, filter) => async (dispatch) => {
                 type: COLOR, payload: filter
             });
         break
+       default:
+           return console.log('')
+        break
         
     }
 }
