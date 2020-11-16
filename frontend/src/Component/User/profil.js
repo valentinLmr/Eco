@@ -9,9 +9,9 @@ import {MessageBox} from '../Helper/MessageBox'
 const Profil = (props) => {
     const userSignin = useSelector(state => state.userSignin)
     const {userInfo} = userSignin
-    if(!userInfo) {
-        props.history.push('/')
-    }
+    // if(!userInfo) {
+    //     props.history.push('/')
+    // }
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('')
