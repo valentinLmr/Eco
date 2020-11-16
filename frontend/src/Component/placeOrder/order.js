@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { MessageBox } from '../Helper/MessageBox';
@@ -22,10 +22,10 @@ import {ORDER_PAY_RESET} from '../../backend/constants/order'
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if(!order || successPay || (order && order._id != orderId)){
+        if(!order || successPay || (order && order._id !== orderId)){
         dispatch({type: ORDER_PAY_RESET});
         dispatch(orderDetail(orderId))};
-    }, [dispatch, orderId, successPay])
+    }, [dispatch, orderId, successPay, order])
 
     console.log(order)
     return loading ?

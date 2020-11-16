@@ -18,7 +18,7 @@ const ProductsScreen = () => {
 
   useEffect(() => {
       dispatch(listProducts())
-  }, [])
+  }, [dispatch])
   
   if (filters.data) {
     const productToDisplay = findItem(allProducts, filters)
