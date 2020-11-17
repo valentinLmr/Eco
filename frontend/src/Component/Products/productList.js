@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createProduct, listProducts } from '../../backend/Actions/productActions';
-import { CREATE_PRODUCT_RESET } from '../../backend/constants/productConstant';
+import { createProduct, deleteProduct, listProducts } from '../../backend/Actions/productActions';
+import { CREATE_PRODUCT_RESET, DELETE_PRODUCT_RESET } from '../../backend/constants/productConstant';
 import { LoadingBox } from '../Helper/LoadingBox';
 import { MessageBox } from '../Helper/MessageBox';
 
@@ -9,21 +9,28 @@ const ProductList = (props) => {
     
     const productList = useSelector( state => state.productList)
     const {loading, error, allProducts} = productList;
+    const productDelete = useSelector(state => state.productDelete)
+    const {error: errorDelete, loading: loadingDelete, success: successDelete} = productDelete
 
     const createdProduct = useSelector( state => state.createdProduct)
     const {error: errorCreatedProduct, loading: loadingCreatedProduct, success: successCreatedProduct, product: productCreatedProduct} = createdProduct;
     const dispatch = useDispatch();
     useEffect(() => {
+        if(successDelete){
+            dispatch({type: DELETE_PRODUCT_RESET})
+        }
         if(successCreatedProduct) {
             props.history.push(`/products/${productCreatedProduct._id}/edit`)
             dispatch({type: CREATE_PRODUCT_RESET});
 
         }
         dispatch(listProducts())
-    }, [createdProduct, dispatch, props.history, successCreatedProduct])
+    }, [createdProduct, dispatch, props.history, successCreatedProduct, successDelete])
 
-    const deleteHandler = () => {
-
+    const deleteHandler = (product) => {
+        if(window.confirm('Are you sure to delete ?')){
+        dispatch(deleteProduct(product._id))
+        }
     }
     const createHandler = () => {
         dispatch(createProduct());
@@ -34,6 +41,8 @@ const ProductList = (props) => {
         <h3> Products List</h3>
         <button type='button' className='primary' onClick={createHandler}> Create product</button>
     </div>
+    {loadingDelete && <LoadingBox></LoadingBox>}
+    {errorDelete && <MessageBox vairant='danger'>{error}</MessageBox>}
     {loadingCreatedProduct && <LoadingBox></LoadingBox>}
     {errorCreatedProduct && <MessageBox variant='danger'>{error}</MessageBox>}
     {loading ? <LoadingBox></LoadingBox> :
@@ -66,8 +75,9 @@ const ProductList = (props) => {
                             onClick={() =>props.history.push(`/products/${product._id}/edit`)}>
                                 Edit
                             </button>
+                            
                             <button type='button' className='small'
-                            // onClick={() => deleteHandler(product)}
+                            onClick={() => deleteHandler(product)}
                             >
                                 Delete
                             </button>

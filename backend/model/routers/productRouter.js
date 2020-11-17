@@ -98,10 +98,21 @@ productRouter.post('/', isAuth, isAdmin, expressAsyncHandler(async(req, res) => 
         rating:0,
         numberOfReview: 0
     });
-const createdProduct = await newProduct.save()
+    const createdProduct = await newProduct.save()
 
-res.send({message: 'Product Created', createdProduct})
+    res.send({message: 'Product Created', createdProduct})
 
+}))
+
+productRouter.delete('/:id', isAuth, isAdmin, expressAsyncHandler(async(req, res) => {
+    const product = await Product.findById(req.params.id)
+    if(product){
+        const deletedProduct = await product.remove()
+        res.send({message: 'product deleted', product: deletedProduct})
+
+    }else{
+        res.status(404).send({ message: 'Product Not Found'})
+    }
 }))
 
 
