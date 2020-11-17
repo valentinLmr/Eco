@@ -14,11 +14,10 @@ const Paypal = (props) => {
     useEffect(() => {
         if(props.orderDetail){
             const addPaypalScript = async () => {
-                const {data} = await Axios.get('api/config/paypal');
-                console.log(data)
+                const {data} = await Axios.get('/api/config/paypal');
                 const script = document.createElement('script');
                 script.type='text/javascript';
-                script.src=`https://www.paypal.com/sdk/js?client-id=${data}`
+                script.src=`https://www.paypal.com/sdk/js?client-id=${data}`;
                 script.async = true
                 script.onload = () => {
                     setSdkReady(true)

@@ -16,6 +16,8 @@ import { ORDER_RESET_REQUEST } from '../../backend/constants/order';
 
     const cart = useSelector(state => state.cart)
     const {cartItems, shippingAddress, paymentMethod} = cart
+    const userSignin = useSelector(state => state.userSignin)
+    const {userInfo} = userSignin
 
 
     if (!paymentMethod){
@@ -29,6 +31,7 @@ import { ORDER_RESET_REQUEST } from '../../backend/constants/order';
     cart.totalPrice = cartItems.reduce((a,c) => a + c.price, 0)
     cart.deliveryPrice = cart.totalPrice > 100 ? 0 : (cart.totalPrice * 0.15)
     cart.reductionPrice = 0
+    cart.user = userInfo._id
 
     
     const dispatch = useDispatch();

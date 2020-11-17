@@ -38,7 +38,7 @@ const ProductEdit = (props) => {
             setBrand(product.brand);
             setDescription(product.description);
         }
-    }, [dispatch, product, productId, successUpdate])
+    }, [dispatch, product, productId, successUpdate, props.history])
 
     const submitHandler = (e) => {
         e.preventDefault();

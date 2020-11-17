@@ -22,6 +22,10 @@
   align-items: center;
 }
 
+.container-image-product-card {
+  height: 70%;
+}
+
 .photo {
   max-height: 11rem;
   background-color: lightslategrey;

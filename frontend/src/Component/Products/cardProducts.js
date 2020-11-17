@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from "react-router-dom";
 
 const Product = (props) =>{
+
   return (
     <Link data='hello'
       className="product-card"
       to={"/products/" + props.product._id}
-      key={props.key}
     >
       <div className="container-image-product-card">
         <img alt='fix' src={props.product.image} className="cart_photo" />

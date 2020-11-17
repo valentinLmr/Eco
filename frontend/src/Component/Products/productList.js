@@ -25,7 +25,7 @@ const ProductList = (props) => {
 
         }
         dispatch(listProducts())
-    }, [createdProduct, dispatch, props.history, successCreatedProduct, successDelete])
+    }, [createdProduct, dispatch, props.history, successCreatedProduct, successDelete,productCreatedProduct._id ])
 
     const deleteHandler = (product) => {
         if(window.confirm('Are you sure to delete ?')){
