@@ -1,3 +1,4 @@
+import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { detailsProduct, updateProductDetails } from '../../backend/Actions/productActions';
@@ -16,8 +17,8 @@ const ProductEdit = (props) => {
     const [brand, setBrand] = useState('');
     const [description, setDescription] = useState('');
 
-    const productDetails = useSelector(state => state.productDetails)
-    const productUpdate = useSelector(state => state.productUpdate)
+    const productDetails = useSelector(state => state.productDetails);
+    const productUpdate = useSelector(state => state.productUpdate);
     const {error: errorUpdate, success: successUpdate, loading: loadingUpdate} = productUpdate
     const {error, loading, product} = productDetails
     const dispatch = useDispatch();
@@ -45,6 +46,31 @@ const ProductEdit = (props) => {
         
     }
 
+    const [loadingUpload, setLoadingUpload] = useState(false);
+    const [errorUpload, setErrorUpload] = useState('');
+    const userSignin = useSelector(state => state.userSignin);
+    const {userInfo} = userSignin;
+    const uploadFileHandler = async (e) => {
+        e.preventDefault();
+        const file = e.target.files[0];
+        const bodyFormData = new FormData();
+        bodyFormData.append('image', file);
+        setLoadingUpload(true)
+        try{
+            const { data } = await Axios.post('/api/uploads', bodyFormData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',  
+                    Authorization: `Bearer ${userInfo.token}` 
+                }
+            })
+            setImage(data);
+            setLoadingUpload(false)
+
+        }catch(error){
+            setErrorUpload(error.message)
+            setLoadingUpload(false)
+        }  
+    }
     return (
         <div>
             <form className='form' onSubmit={submitHandler}>
@@ -67,7 +93,14 @@ const ProductEdit = (props) => {
                 <div>
                     <label htmlFor='image'>Image</label>
                     <input id='image' type='text' placeholder='Enter image' value={image} onChange={ (e) => setImage(e.target.value)}></input>
+                    
                 </div>
+                <div>
+                        <label htmlFor='imageFile'>Image File</label>
+                        <input type='file' id='imageFile' label='choose Image' onChange={(e) => uploadFileHandler(e)}></input>
+                        {loadingUpload && <LoadingBox></LoadingBox>}
+                        {errorUpload && <MessageBox variant='danger'>{error}</MessageBox>}
+                    </div>
                 <div>
                     <label htmlFor='category'>Category</label>
                     <input id='category' type='text' placeholder='Enter category' value={category} onChange={ (e) => setCategory(e.target.value)}></input>
