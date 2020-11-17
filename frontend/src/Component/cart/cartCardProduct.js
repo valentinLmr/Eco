@@ -16,11 +16,10 @@ const CartCardProduct = (props)  => {
         <div className='card_cart_product'>
                 <img className='cart_photo' alt="fix" src="/image/pants.jpeg"  />
                 <aside id="card-cart-product-aside">
+                <h4 className='flex center'>{props.item.brand} - <i> {props.item.name}</i></h4>  
                     <section id='card-cart-product-aside-section-top'>
                         <div id='card-cart-product-aside-section-top-infos'>
-                        
-                                <h4>{props.item.brand} - <i> {props.item.name}</i></h4>  
-                            
+                    
                             <div className='flex space-between details center'>
                                 <h5>couleur</h5>
                                 <b><p>{props.item.color}</p></b>
@@ -39,6 +38,7 @@ const CartCardProduct = (props)  => {
                             </div>
                         </div>
                         <div id='card-cart-product-aside-section-top-price'>
+                            <div> <p><i>{props.item.description}</i></p></div>
                             <div className='element'>
                                 <input type="text" defaultValue="Code promo" />
                                 <h4>{props.item.price}€</h4>

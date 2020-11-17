@@ -33,7 +33,7 @@ const Cart = (props) => {
     return(
         <div>
             <Link to={'/products'} className='link_to_products'>
-                retour à votre shopping
+            <p className='back flex center'><i className='fa fa-caret-left'></i>retour à votre shopping</p>
             </Link>
             <div style={{display: 'flex', width: "90%", margin: "0 auto"}}>
                 <section className='cardsOfProductCart'>
