@@ -24,7 +24,8 @@ const Product = (props) => {
 
 
     return (
-    <div className="product-display-screen">
+      <>
+      {product ? <div className="product-display-screen">
       <aside className="product-side-pictures">
         <div className="container-photos-product-sider">
           <img alt='fix' className="photo" src={product.image}></img>
@@ -54,7 +55,7 @@ const Product = (props) => {
               >
                 <select value={color} onChange={(e) => setColor(e.target.value)}>
                     {
-                      product.colors?  product.colors.map(color => <option value={color.color}> {color.color}</option>) : ''
+                      product.colors?  product.colors.map(color => <option key={color._id}value={color.color}> {color.color}</option>) : ''
                     }
                 </select>
                 </div>
@@ -82,7 +83,7 @@ const Product = (props) => {
               <div className="setting-size-product">
                 <select value={size} onChange={(e) => setSize(e.target.value)}>
                     {
-                      product.colors?  product.colors[0].sizes.map(size => <option value={size.size}> {size.size}</option> ) : '' }
+                      product.colors?  product.colors[0].sizes.map(size => <option key={size._id} value={size.size}> {size.size}</option> ) : '' }
                 </select>
               </div>
             </div>
@@ -106,7 +107,9 @@ const Product = (props) => {
           </div>
         </div>
       </aside>
-    </div>
+    </div> : ''}
+      </>
+    
   );
 }
 

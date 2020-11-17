@@ -11,15 +11,16 @@ import Register from "./Component/User/register";
 import ShippingAddress from "./Component/Shipping/ShippingAddress";
 import PaymentMethod from "./Component/payment/payment";
 import { signout } from "./backend/Actions/userActions";
-import PlaceOrder from "./Component/placeOrder/placeOrder";
-import Order from './Component/placeOrder/order';
-import OrdersHistory from './Component/placeOrder/orderHistory'
+import PlaceOrder from "./Component/Order/placeOrder";
+import Order from './Component/Order/order';
+import OrdersHistory from './Component/Order/orderHistory'
 import Profil from "./Component/User/profil";
 import PrivateRoute from "./Component/User/privateRoute";
 import AdminRoute from "./Component/User/adminRoute";
 
 import ProductList from "./Component/Products/productList";
 import ProductEdit from "./Component/Products/editProduct";
+import OrderList from "./Component/Order/orderlist";
 
 function App() {
 
@@ -125,6 +126,7 @@ function App() {
           <Route path='/ordershistory' component={OrdersHistory}></Route>
           <PrivateRoute path='/profile' component={Profil}/>
           <AdminRoute path='/productlist' component={ProductList}></AdminRoute>
+          <AdminRoute path='/orderlist' component={OrderList}></AdminRoute>
           <Route path="/"  component={HomeScreen} exact/>
         </main>
         <footer className="footer">

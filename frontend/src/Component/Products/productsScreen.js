@@ -48,7 +48,7 @@ const ProductsScreen = () => {
           :( <div className="products-display">
 
                 {allProducts.map((product) => (
-                 <CardProducts product={product} key={product.id} />))}
+                 <CardProducts product={product} key={product._id}/>))}
               </div>) }
         </div>
       </div>

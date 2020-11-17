@@ -1,4 +1,3 @@
-import product from '../Component/Products/cardProducts';
 import * as useFull from './Usefull'
 
  const checkQuantities = (products, filters) => {
