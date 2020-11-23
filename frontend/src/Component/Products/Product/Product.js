@@ -12,15 +12,21 @@ const Product = (props) => {
   const [size, setSize] = useState('')
 
   const [color, setColor] = useState('')
+  const [imageCentral, setImageCentral] = useState('')
   
   useEffect(() => {
+    if(product && imageCentral === ''){
+      console.log(product)
+      setImageCentral(product.image)
+    }
     dispatch(detailsProduct(productId));
-  }, [dispatch, productId])
+
+  }, [dispatch, productId, product])
 
   const addToCartHandler = () => {
     props.history.push(`/cart/${productId}?clr=${color ? color : product.colors[0].color}&?sz=${size ? size : product.colors[0].sizes[0].size}`)
   }
-  console.log(size)
+  
 
 
     return (
@@ -28,15 +34,15 @@ const Product = (props) => {
       {product ? <div className="product-display-screen">
       <aside className="product-side-pictures">
         <div className="container-photos-product-sider">
-          <img alt='fix' className="photo" src={product.image}></img>
-          <img alt='fix' className="photo" src={product.image}></img>
-          <img alt='fix' className="photo" src={product.image}></img>
-          <img alt='fix' className="photo" src={product.image}></img>
-          <img alt='fix' className="photo" src={product.image}></img>
+          <img alt='fix' className="photo" src={product.image} onClick={ e => setImageCentral(product.image)}></img>
+          <img alt='fix' className="photo" src={product.image2} onClick={ e => setImageCentral(product.image2)}></img>
+          <img alt='fix' className="photo" src={product.image3} onClick={ e => setImageCentral(product.image3)}></img>
+          <img alt='fix' className="photo" src={product.image4} onClick={ e => setImageCentral(product.image4)} ></img>
+          <img alt='fix' className="photo" src={product.image5} onClick={ e => setImageCentral(product.image5)}></img>
         </div>
       </aside>
       <div className="product-picture-selected">
-        <img alt='fix' className="central-photo" src={product.image}></img>
+        <img alt='fix' className="central-photo" src={imageCentral}></img>
       </div>
       <aside className="product-side-infos">
         <div className="product-infos">
