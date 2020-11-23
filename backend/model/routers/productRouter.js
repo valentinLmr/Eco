@@ -1,10 +1,12 @@
 import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
-import data from '../../data.js';
 import Product from '../productModel.js';
 import Color from '../colorModel.js'
 import Size from '../sizeModel.js'
 import { isAdmin, isAuth } from '../../utils.js';
+import data from '../../data.js'
+import mongoose from 'mongoose'
+
 const productRouter = express.Router();
 
 productRouter.put('/:id', isAuth, isAdmin, expressAsyncHandler(async(req, res) => {
@@ -36,9 +38,11 @@ productRouter.get('/', expressAsyncHandler(async(req ,res) => {
 
 productRouter.get('/seed', expressAsyncHandler(async(req, res) => {
     await Product.deleteMany();
-    await Color.deleteMany()
-    await Size.deleteMany()
+    await Color.deleteMany();
+    await Size.deleteMany()  ;
+
     const createdProduct = await Product.insertMany(data.products)
+    console.log(data)
 
     for (let i = 0; i < createdProduct.length; i++){
         
@@ -49,7 +53,6 @@ productRouter.get('/seed', expressAsyncHandler(async(req, res) => {
             color.productRef = product._id
             color.save()
             product.colors.push(color)    
-            product.save()            
         })
         for (let i = 0; i < product.colors.length; i++){
 
@@ -61,11 +64,14 @@ productRouter.get('/seed', expressAsyncHandler(async(req, res) => {
                 size.colorRef = color._id
                 size.countInStock = Math.round(Math.random() * 10 + 1)
                 size.save() 
-                color.sizes.push(size)
-                color.save()
-                
+                color.sizes.push(size) 
             }) 
+            color.save()
+
         }
+        product.save()
+
+
     
         Product.findOne({ name: 'tunique' }).populate('colors')
         Color.findOne({color: 'red'}).populate('sizes')
