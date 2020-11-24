@@ -30,11 +30,14 @@ productRouter.put('/:id', isAuth, isAdmin, expressAsyncHandler(async(req, res) =
 
 
 productRouter.get('/', expressAsyncHandler(async(req ,res) => {
-    let products = await Product.find({});
+    const category = req.query.category ? { category: req.query.category } : {};
+    const size = req.query.size ? { size: req.query.size } : {};
+    const color = req.query.color ? { color: req.query.color } : {};
+    const price = req.query.price ? { price: { $lt: parseInt(req.query.price) } } : {};
+    const products =  await Product.find({ ...category, ...size, ...color, ...price })
     res.send(products)
     })
 );
-
 
 productRouter.get('/seed', expressAsyncHandler(async(req, res) => {
     await Product.deleteMany();

@@ -1,13 +1,17 @@
 import Axios from 'axios'
 import { CREATE_PRODUCT_FAIL, CREATE_PRODUCT_REQUEST, CREATE_PRODUCT_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, UPDATE_PRODUCT_FAIL, UPDATE_PRODUCT_REQUEST, UPDATE_PRODUCT_SUCCESS, DELETE_PRODUCT_SUCCESS,DELETE_PRODUCT_FAIL, DELETE_PRODUCT_REQUEST } from '../constants/productConstant';
 
-export const listProducts = () => async (dispatch) => {
+export const listProducts = (category = '', color = '', price = '', size = '') => async (dispatch, getState) => {
   dispatch({
     type: PRODUCT_LIST_REQUEST,
   });
+
+  console.log(category, color, size, price)
+
   try {
-      const { data } = await Axios.get('/api/products');
-      dispatch({ type : PRODUCT_LIST_SUCCESS, payload: data})
+    
+     const {data} = await Axios.get('/api/products/?category=' + category +"&size=" + size + "&color=" + color + "&price=" + price);  
+     dispatch({ type : PRODUCT_LIST_SUCCESS, payload: data})
   } catch(error){
     dispatch({ type : PRODUCT_LIST_FAIL, payload: error.message})
   }
