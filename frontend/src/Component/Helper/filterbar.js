@@ -1,28 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { filteringProduct } from '../../backend/Actions/filterAction';
+import { listProducts } from "../../backend/Actions/productActions";
 
 
 
  const FilterBar = () => {
 
   const dispatch = useDispatch();
-  const filters = useSelector((state) => state.filters)
 
-  const dispatching = (key, value) => {
-    updatefilter(key, value)
-    updateProductToDispaly(filters)
-    
-  }
+  const [size, setSize] = useState('');
+  const [color, setColor] = useState('');
+  const [price, setPrice] = useState('');
+  const [category, setCategory] = useState(''); 
+
+  useEffect(() => {
 
 
-  const updatefilter = (key, value) => {
-     dispatch(filteringProduct(key, value.toString()))
-  } 
+    if(size || color || price || category){
+      console.log(price)
+    dispatch({type: 'addFilter', payload:{size, color, price, category}})
+    dispatch(listProducts(category, color, price, size))
 
-  const updateProductToDispaly = (filters) => {
-    dispatch(filteringProduct(filters))
-  }
+    }
+  }, [size, color, price, category])
+
+
+
 
   return (
       <section className="filterbar">
@@ -34,16 +37,14 @@ import { filteringProduct } from '../../backend/Actions/filterAction';
             </form>
             <ul
               className="filters"
-              onClick={(e) => dispatching('CATEGORIES', e.target.innerText)}
+              onClick={(e) =>  setCategory(e.target.innerText) }
             >
-              <li>Robe</li>
-              <li>Jupe</li>
-              <li>Tee-shirt</li>
-              <li>Sweatshirt</li>
-              <li>Pants</li>
-              <li>Jean</li>
-              <li>Vest</li>
-              <li>overalls</li>
+              <li>Shirt</li>
+              <li>Pull</li>
+              <li>T-shirt</li>
+              <li>Sweat</li>
+              <li>Pant</li>
+              <li>Manteau</li>
             </ul>
   
             <div className="under-filters">
@@ -52,7 +53,7 @@ import { filteringProduct } from '../../backend/Actions/filterAction';
                   type="select"
                   data-filter="size"
                   onChange={(e) =>
-                    dispatching('SIZE', e.target.value)
+                    setSize(e.target.value)
                   }
                 >
                   <option>S</option>
@@ -61,33 +62,20 @@ import { filteringProduct } from '../../backend/Actions/filterAction';
                 </select>
                 <select
                   type="select"
-                  data-filter="brand"
-                  onChange={(e) => dispatching('BRAND', e.target.value)
-
-                  }
-                >
-                  <option>Adidas</option>
-                  <option>Nike</option>
-                  <option>Vans</option>
-                  <option>Veja</option>
-                  <option>Converse</option>
-                </select>
-                <select
-                  type="select"
                   data-filter="price"
-                  onChange={(e) => dispatching('PRICE', e.target.value)}
+                  onChange={(e) => setPrice(e.target.value)}
                 >
-                  <option value="20">20 €</option>
-                  <option value="40">40 €</option>
-                  <option value="60">60 €</option>
-                  <option value="80">80 €</option>
-                  <option value="100">100 €</option>
-                  <option value="150">150 €</option>
+                  <option value={20}>20 €</option>
+                  <option value={40}>40 €</option>
+                  <option value={60}>60 €</option>
+                  <option value={80}>80 €</option>
+                  <option value={100}>100 €</option>
+                  <option value={150}>150 €</option>
                 </select>
                 <select
                   type="select"
                   onChange={(e) => 
-                    dispatching('COLOR', e.target.value)
+                    setColor(e.target.value)
                   }
                 >
                   <option>Blue</option>

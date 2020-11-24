@@ -20,24 +20,6 @@ const ProductsScreen = () => {
       dispatch(listProducts())
   }, [dispatch])
   
-  if (filters.data) {
-    const productToDisplay = findItem(allProducts, filters)
-    return (
-      <div>
-        <FilterBar />
-        <div className="main-products-screen">
-
-          {loading? (<LoadingBox></LoadingBox>) 
-          : error? (<MessageBox variant='danger'>{error}</MessageBox>) 
-          :( <div className="products-display">
-
-                {productToDisplay.map((product) => (
-                 <CardProducts key={product.name} product={product}/>))}
-              </div>) }
-        </div>
-      </div>
-    );
-  } else {
     return (
       <div>
         <FilterBar />
@@ -52,12 +34,7 @@ const ProductsScreen = () => {
               </div>) }
         </div>
       </div>
-    );
-  }
-  
-
-
-    
+    );   
 }
 
 export default ProductsScreen
