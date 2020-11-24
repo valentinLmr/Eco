@@ -14,51 +14,56 @@ const CartCardProduct = (props)  => {
  }
     return(
         <div className='card_cart_product'>
-                <img className='cart_photo' alt="fix" src="/image/pants.jpeg"  />
+                <img className='cart_photo' alt="fix" src={props.item.image}  />
                 <aside id="card-cart-product-aside">
+                <button className="button-card-cart-product" onClick={ (e) => deleteItemHandler(props.item)} ><i class="fas fa-trash-alt"></i></button>
+
+                <h4 className='center'>{props.item.brand} - {props.item.name}</h4> 
+
                     <section id='card-cart-product-aside-section-top'>
                         <div id='card-cart-product-aside-section-top-infos'>
                         
-                                <h4>{props.item.brand} - <i> {props.item.name}</i></h4>  
+                                 <h5>Infos</h5>
                             
                             <div className='flex space-between details center'>
-                                <h5>couleur</h5>
+                                <p> <strong>couleur</strong></p>
                                 <b><p>{props.item.color}</p></b>
                             </div>
                             <div className='flex space-between details center'>
-                                <h5>Taille</h5>
+                                <p> <strong>Tailles</strong></p>
                                 <b><p>{props.item.size}</p></b>
                             </div>
                             <div className='flex space-between details center'>
-                                <h5>Quantité</h5>
+                                <p><strong>Quantité</strong></p>
                                 <b><p>{props.item.qty}</p></b>
                             </div>
                             <div className='flex space-between details center'>
-                                <h5>Référence</h5>
-                                <b><p>{props.item._id}</p></b>
+                                <p><strong>référence</strong></p>
+                                <b><p>1234455</p></b>
                             </div>
+                            <div className=' flex center details justify-center'>
+                            <h4>{props.item.price}€</h4>
+                            </div>
+
                         </div>
                         <div id='card-cart-product-aside-section-top-price'>
                             <div className='element'>
-                                <input type="text" defaultValue="Code promo" />
-                                <h4>{props.item.price}€</h4>
+                                <h5> Description</h5>
+                                <p>{props.item.description}</p>
+                                
                             </div>
                         </div>
 
                     </section>
                         
                         <div id ='card-cart-product-aside-section-bottom'>
-                        <section className='flex space-between'>
-                            <button className="primary button-card-cart-product"> Modifer</button>
-                            <button className="primary button-card-cart-product" onClick={ (e) => deleteItemHandler(props.item)} > Supprimer</button>
-                        </section> 
-                        {props.order && !props.deliver ?
+                        {/* {props.order && !props.deliver ? */}
                         <MessageBox variant='danger'>Order Isn't deliverd yet</MessageBox>
-                        : props.order && props.deliver ? <MessageBox variant='success'>Order Is delivered</MessageBox>
+                        {/* : props.order && props.deliver ? <MessageBox variant='success'>Order Is delivered</MessageBox>
                         : ''
-                        }
+                        } */}
                         </div> 
-                        
+                       
                         
                 </aside>
         </div>

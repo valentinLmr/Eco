@@ -12,29 +12,21 @@ import { listProducts } from "../../backend/Actions/productActions";
   const [color, setColor] = useState('');
   const [price, setPrice] = useState('');
   const [category, setCategory] = useState(''); 
+  const [search, setSearch] = useState('')
 
   useEffect(() => {
+    dispatch(listProducts(category, color, price, size, search))
+  }, [size, color, price, category, search])
 
 
-    if(size || color || price || category){
-      console.log(price)
-    dispatch({type: 'addFilter', payload:{size, color, price, category}})
-    dispatch(listProducts(category, color, price, size))
-
-    }
-  }, [size, color, price, category])
-
-
-
+  
 
   return (
       <section className="filterbar">
-            <form>
               <div className="Searchbar">
-                <input type="text" label="What are you looking for ?" />
+                <input type="text" label="What are you looking for ?" value={search} onChange={ e => setSearch(e.target.value)} />
                 <i className="fas fa-search"></i>
               </div>
-            </form>
             <ul
               className="filters"
               onClick={(e) =>  setCategory(e.target.innerText) }

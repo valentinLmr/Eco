@@ -11,56 +11,66 @@
 }
 
 #card-cart-product-aside {
+  position: relative;
   height: 90%;
   width: 70%;
-  margin: auto;
+}
+#card-cart-product-aside > h4 {
+  margin-bottom: 1rem;
 }
 
 #card-cart-product-aside-section-top {
   display: flex;
   justify-content: space-evenly;
+  height: 75%;
+}
+
+#card-cart-product-aside-section-top > div {
+  height: 100%;
+  margin: auto;
 }
 
 #card-cart-product-aside-section-top-infos {
-  width: 50%;
-  padding: 1rem;
+  width: 40%;
+  padding: 0 1rem;
 }
 
 #card-cart-product-aside-section-top-price {
-  width: 50%;
-  padding: 1rem;
+  width: 60%;
+  padding: 0 1rem;
   text-align: center;
 }
+
 .element {
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
+  text-align: justify;
+  padding: 0 1rem;
 }
 
-.element input {
-  text-align: center;
-  border: none;
-  height: 2rem;
-  color: white;
+.element > p {
+  height: 80%;
+  line-height: 1.4;
 }
 
+.element > h5 {
+  height: 20%;
+}
 #card-cart-product-aside-section-bottom {
   width: 80%;
   margin: 0 auto;
 }
 
 .button-card-cart-product {
-  width: 15rem;
-  color: white;
+  top: 1rem;
+  right: 1rem;
+  position: absolute;
+  color: red;
+  font-weight: bold;
+  background: none;
   border: none;
-  border-radius: 5px;
-  background-color: #203040;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.5rem;
+  cursor: pointer;
 }
 
 .details {
-  margin: 1rem 0;
+  margin: auto;
+  height: 17%;
 }

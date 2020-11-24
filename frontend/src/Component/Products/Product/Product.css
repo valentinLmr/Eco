@@ -29,6 +29,7 @@
 .photo {
   max-height: 11rem;
   background-color: lightslategrey;
+  cursor: pointer;
 }
 
 .product-picture-selected {
