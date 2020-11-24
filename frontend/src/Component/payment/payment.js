@@ -16,7 +16,7 @@ const PaymentMethod = (props) => {
         props.history.push('/shipping')
     }
 
-        const [paymentMethod, setPayement] = useState('')
+        const [paymentMethod, setPayement] = useState('Paypal')
         const dispatch = useDispatch();
 
         const selectHandler = (e) => {
@@ -38,7 +38,7 @@ const PaymentMethod = (props) => {
             <div><h1>Payement Method</h1></div>
             <div className='paymentSelectionContainer'>
                 <div onClick={(e) => selectHandler(e)}  className='PaymentChoice selectedPayment' data-payment='Paypal'>
-                    <input  type='radio' id='paypal' name='paymentMethod' required defaultChecked></input>
+                    <input  type='radio' id='paypal' name='paymentMethod' required defaultChecked   ></input>
                      <img alt='fix' src='/image/paypal.png'  className="payment_photo" onClick={(e) => setPayement('Paypal')}/>
                 </div>
                 <div  onClick={(e) => selectHandler(e)} className='PaymentChoice' data-payment='Stripe'>

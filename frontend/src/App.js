@@ -49,8 +49,12 @@ function App() {
           </div>
 
           <div className="header-links">
-            <Link to="/products"> Vêtement</Link>
-            <Link to="/cart"> panier { cartItems.length > 0 && ( <span className='badge'>{cartItems.length}</span>)}</Link>
+            <div>             
+              <Link to="/products"> Vêtement</Link>
+            </div>
+            <div>
+              <Link to="/cart"> panier { cartItems.length > 0 && ( <span className='badge'>{cartItems.length}</span>)}</Link>
+            </div>
             {userInfo ? (
             <div className='dropdown'>
               <Link to="#"> 

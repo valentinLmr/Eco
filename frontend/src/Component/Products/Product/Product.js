@@ -47,7 +47,7 @@ const Product = (props) => {
       <aside className="product-side-infos">
         <div className="product-infos">
           <div className="product-name">
-              <h3>{product.name} - <i>{product.brand}</i></h3>
+              <h4>{product.name} - {product.brand}</h4>
               <p style={{ textDecoration: "underline" }}>Détails</p> 
           </div>
           <div className="details-product">

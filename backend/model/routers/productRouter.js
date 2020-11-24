@@ -34,7 +34,17 @@ productRouter.get('/', expressAsyncHandler(async(req ,res) => {
     const size = req.query.size ? { size: req.query.size } : {};
     const color = req.query.color ? { color: req.query.color } : {};
     const price = req.query.price ? { price: { $lt: parseInt(req.query.price) } } : {};
-    const products =  await Product.find({ ...category, ...size, ...color, ...price })
+    const search = req.query.search ? { 
+        name: {
+            $regex: req.query.search,
+            $options: 'i'
+        },
+        description:{
+            $regex: req.query.search,
+            $options: 'i' 
+        } } : {};
+
+    const products =  await Product.find({ ...category, ...size, ...color, ...price, ...search })
     res.send(products)
     })
 );
