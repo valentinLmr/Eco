@@ -32,6 +32,12 @@
   cursor: pointer;
 }
 
+.photo_sibling_product {
+  height: 8rem;
+  width: 6rem;
+  margin: 0.5rem;
+}
+
 .product-picture-selected {
   width: 60%;
   height: 100%;

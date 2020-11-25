@@ -97,10 +97,12 @@ productRouter.get('/seed', expressAsyncHandler(async(req, res) => {
 }))
 
 productRouter.get('/:id', expressAsyncHandler(async (req, res) => {
-    const product = await Product.findById(req.params.id).populate({ path:'colors', populate:{ path:'sizes'}})
-  
+    const product = await Product.findById(req.params.id).populate({ path:'colors', populate:{ path:'sizes'}});
+    const Similarproduct =  await Product.find({name: product.name }).populate({path: 'colors', populate:{path: 'sizes'}});
+ 
+
     if(product){
-        res.send(product)
+        res.send({product, Similarproduct})
     }else {
         res.status(404).send({ message: 'Product Not Found'})
     }
