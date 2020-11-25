@@ -8,23 +8,32 @@ const Product = (props) => {
    const dispatch = useDispatch();
    const productId = props.match.params.id
   const productDetails = useSelector( state => state.productDetails);
-  const  {product} = productDetails
+  const  {product, productSibling } = productDetails;
+  console.log(productSibling)
   const [size, setSize] = useState('')
 
   const [color, setColor] = useState('')
   const [imageCentral, setImageCentral] = useState('')
   
   useEffect(() => {
-    if(product && imageCentral === ''){
+    if(product){
       console.log(product)
       setImageCentral(product.image)
     }
-    dispatch(detailsProduct(productId));
 
+    if(!product){
+    dispatch(detailsProduct(productId));
+    }
   }, [dispatch, productId, product])
 
   const addToCartHandler = () => {
     props.history.push(`/cart/${productId}?clr=${color ? color : product.colors[0].color}&?sz=${size ? size : product.colors[0].sizes[0].size}`)
+  }
+
+  const changeProductHandler = (id) => {
+    if (id) {
+    dispatch(detailsProduct(id));
+    }
   }
   
 
@@ -51,7 +60,9 @@ const Product = (props) => {
               <p style={{ textDecoration: "underline" }}>Détails</p> 
           </div>
           <div className="details-product">
+            
             <div className="detail couleur-product">
+             
               <div
                 style={{
                   display: "flex",
@@ -59,22 +70,11 @@ const Product = (props) => {
                   justifyContent: "center",
                 }}
               >
-                <select value={color} onChange={(e) => setColor(e.target.value)}>
                     {
-                      product.colors?  product.colors.map(color => <option key={color._id}value={color.color}> {color.color}</option>) : ''
+                      // Need to implement the change product Handler
+                      productSibling?  productSibling.map(product => <img className='photo_sibling_product'src={product.image} onClick={ e => changeProductHandler(product._id)}></img>) : ''
                     }
-                </select>
                 </div>
-              <div 
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}>
-                    {
-                      product.colors? <p>Number of Color :  {product.colors.length}</p> : ''
-                    }
-              </div>
             </div>
 
             <div

@@ -5,13 +5,11 @@ import { MessageBox } from "../Helper/MessageBox";
 import { LoadingBox } from "../Helper/LoadingBox"
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../../backend/Actions/productActions"
-import findItem from "../../backend/filters";
 
 const ProductsScreen = () => {
   
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
-  const filters = useSelector((state) => state.filters);
 
   const {loading, error, allProducts } = productList;
 

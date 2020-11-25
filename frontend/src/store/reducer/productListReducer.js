@@ -1,4 +1,3 @@
-import findItem from '../../backend/filters'
 import { PRODUCT_LIST_FAIL, PRODUCT_LIST_FILTERING, PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS } from '../../backend/constants/productConstant';
 
 const initialState = {
@@ -27,12 +26,6 @@ export const productListReducer = (state = initialState, action) => {
             ...state,
             loading: false, 
             error: action.payload
-        }
-        case PRODUCT_LIST_FILTERING:
-        const newArray = findItem(state.allProducts, action.payload)
-        return{
-            ...state,
-            productsToDisplay: newArray
         }
         default: 
         return state;
