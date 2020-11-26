@@ -18,11 +18,12 @@ const Cart = (props) => {
     const cart = useSelector((state) => state.cart)
 
     const {cartItems} = cart
+    console.log(cartItems)
     
     const dispatch = useDispatch();
     useEffect(() => {
         if(productId){
-            dispatch(addToCart(productId, color, size, 1))
+            dispatch(addToCart(productId, size, 1))
         }
     }, [dispatch, productId, color, size])
 

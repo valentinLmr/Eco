@@ -14,8 +14,8 @@ const productSchema = new mongoose.Schema({
     description:{type: String, required:true},
     price:{type: Number, required:true},
     color:{type: String, required: true},
-    colors:[{type: Schema.Types.ObjectId,
-        ref: "Color"
+    sizes:[{type: Schema.Types.ObjectId,
+        ref: "Size"
     }],
     rating:{type: Number, required:true},
     numberOfReview:{type: Number, required:true},

@@ -27,7 +27,7 @@ const Product = (props) => {
   }, [dispatch, productId, product])
 
   const addToCartHandler = () => {
-    props.history.push(`/cart/${productId}?clr=${color ? color : product.colors[0].color}&?sz=${size ? size : product.colors[0].sizes[0].size}`)
+    props.history.push(`/cart/${productId}?clr=${product.color}&?sz=${size ? size : product.colors[0].sizes[0].size}`)
   }
 
   const changeProductHandler = (id) => {
@@ -35,6 +35,25 @@ const Product = (props) => {
     dispatch(detailsProduct(id));
     }
   }
+
+  const selectedSizeHandler= (e)=> {
+  
+    const target = e.target;
+    const parent = target.parentElement;
+    let siblings = Array.from(parent.children).filter(el => el !== target);
+
+    siblings.map(el => {
+      
+        el.classList.remove('selected')
+
+    })
+
+    target.classList.add('selected')
+    setSize(target.innerText.toLowerCase())
+  }
+
+  console.log(size)
+
   
 
 
@@ -79,18 +98,9 @@ const Product = (props) => {
 
             <div
               className="detail"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
             >
-              <p>taille</p>
-              <div className="setting-size-product">
-                <select value={size} onChange={(e) => setSize(e.target.value)}>
-                    {
-                      product.colors?  product.colors[0].sizes.map(size => <option key={size._id} value={size.size}> {size.size}</option> ) : '' }
-                </select>
+              <div className='boxSize-Container'>
+                  {product.sizes ?  product.sizes.map(size => <h5 className='boxSize-Option' onClick={ e => selectedSizeHandler(e)} key={size._id} value={size.size}> {size.size.toUpperCase()}</h5> ) : '' }
               </div>
             </div>
             <div className="detail">

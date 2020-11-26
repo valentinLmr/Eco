@@ -15,6 +15,7 @@ productRouter.put('/:id', isAuth, isAdmin, expressAsyncHandler(async(req, res) =
     const product = await Product.findById(productId);
     if(product) {
         product.name = req.body.name;
+        product.color = req.body.color;
         product.price = req.body.price;
         product.image = req.body.image;
         product.category = req.body.category;
@@ -55,50 +56,29 @@ productRouter.get('/seed', expressAsyncHandler(async(req, res) => {
     await Size.deleteMany()  ;
 
     const createdProduct = await Product.insertMany(data.products)
-    console.log(data)
 
     for (let i = 0; i < createdProduct.length; i++){
         
-        let createdColor = await Color.insertMany(data.colors)
         let product = createdProduct[i]
+        let createdSize = await Size.insertMany(data.sizes)
 
-        createdColor.map( color => {
-            color.productRef = product._id
-            color.save()
-            product.colors.push(color)    
+        createdSize.map( size => {
+            size.productRef = product._id
+            size.countInStock = Math.floor(Math.random() * 10);
+            size.save()
+            product.sizes.push(size)    
         })
-        for (let i = 0; i < product.colors.length; i++){
-
-            let color = product.colors[i]
-
-            let createdSize = await Size.insertMany(data.sizes)
-
-            createdSize.map( size => {
-                size.colorRef = color._id
-                size.countInStock = Math.round(Math.random() * 10 + 1)
-                size.save() 
-                color.sizes.push(size) 
-            }) 
-            color.save()
-
-        }
         product.save()
-
-
     
-        Product.findOne({ name: 'tunique' }).populate('colors')
-        Color.findOne({color: 'red'}).populate('sizes')
-
-
+        Product.findOne({ name: 'tunique' }).populate('sizes')
     }
-
     res.send({createdProduct})
 
 }))
 
 productRouter.get('/:id', expressAsyncHandler(async (req, res) => {
-    const product = await Product.findById(req.params.id).populate({ path:'colors', populate:{ path:'sizes'}});
-    const Similarproduct =  await Product.find({name: product.name }).populate({path: 'colors', populate:{path: 'sizes'}});
+    const product = await Product.findById(req.params.id).populate({ path:'sizes'});
+    const Similarproduct =  await Product.find({name: product.name }).populate({path: 'sizes'});
  
 
     if(product){
@@ -113,6 +93,7 @@ productRouter.post('/', isAuth, isAdmin, expressAsyncHandler(async(req, res) => 
         name:'sample Name' + Date.now(),
         image:'/images/p1.jpg',
         price:'0',
+        color:'sample Color',
         category:'sample Category',
         brand:'sample brand',
         description:'sample decription',
