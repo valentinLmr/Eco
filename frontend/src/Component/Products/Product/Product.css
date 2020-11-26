@@ -36,6 +36,7 @@
   height: 8rem;
   width: 6rem;
   margin: 0.5rem;
+  cursor: pointer;
 }
 
 .product-picture-selected {
@@ -77,10 +78,31 @@
 }
 
 .detail {
-  margin: 2rem 0;
-  padding: 1rem;
-  height: auto;
+  padding: 1rem 0;
+  min-height: 5rem;
   border-bottom: 0.1rem solid grey;
+}
+
+.boxSize-Container {
+  height: 5rem;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  margin: auto;
+  background-color: white;
+  cursor: pointer;
+}
+.selected {
+  background-color: #203040;
+  color: white;
+}
+.boxSize-Option {
+  flex-grow: 1;
+  text-align: center;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .circle-color-product {

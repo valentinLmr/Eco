@@ -5,9 +5,9 @@ const Schema = mongoose.Schema
 const sizeSchema = mongoose.Schema({
     size: {type: String, required: true},
     countInStock: {type: Number},
-    colorRef:{
+    productRef:{
         type: Schema.Types.ObjectId,
-        ref:'Color'
+        ref:'Product'
     }
 }, {
     timestamps:true
